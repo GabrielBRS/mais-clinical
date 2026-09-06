@@ -1,0 +1,3 @@
+# Websocket
+
+Streaming de detections.

@@ -1,0 +1,2 @@
+strategy: single_gpu
+gpus: 1

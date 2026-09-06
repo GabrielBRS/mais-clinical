@@ -1,0 +1,394 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "standard": {
+    "name": "Modern Mojo Engineering Standard",
+    "version": "2.0.0",
+    "status": "mandatory",
+    "language": "Mojo",
+    "target_standard": "Mojo 1.0+ stable",
+    "project": "ai-compute-engine"
+  },
+  "this_repository": {
+    "primary_language": "Mojo",
+    "source_extension": ".mojo",
+    "specs_dir": ".cursor/specs/",
+    "rule_files": [
+      ".cursor/rules/mojo-language.mdc",
+      ".cursor/rules/mojo-gpu.mdc",
+      ".cursor/rules/mojo-architecture.mdc"
+    ],
+    "stable_language_baseline": "Mojo 1.0.x",
+    "build_tool": "mojo CLI",
+    "environment_management": [
+      "pixi"
+    ],
+    "gpu_policy": "portable Mojo first; vendor specialization only when justified",
+    "legacy_cpp_cuda": "removed; do not reintroduce project-owned C++/CUDA",
+    "do_not_fake": [
+      "legacy fn syntax",
+      "unverified Mojo/MAX APIs",
+      "nightly-only APIs in stable code without an explicit feature/toolchain note",
+      "hardware targets not supported by the installed Mojo version",
+      "a native Mojo package-manager workflow that the pinned toolchain does not provide",
+      "CUDA C++/HIP source as the default GPU implementation",
+      "C++26/XMake/CMake requirements inherited from the old implementation"
+    ]
+  },
+  "toolchain": {
+    "version_check": "mojo --version",
+    "run": "mojo <path>.mojo",
+    "build": "mojo build <path>.mojo -o <output>",
+    "format": "mojo format <sources...>",
+    "precompile": "mojo precompile <package> when useful",
+    "testing": "std.testing + TestSuite, executed with mojo",
+    "benchmarking": "std.benchmark",
+    "dependency_environment": {
+      "preferred": [
+        "pixi"
+      ],
+      "rule": "Use the repository's existing environment manager. Do not introduce an additional manager without reason."
+    },
+    "accelerator_targeting": "Use only --target-accelerator values verified by the installed version/current stable docs."
+  },
+  "language_policy": {
+    "modern_mojo_only": true,
+    "minimum_target": "Mojo 1.0 stable",
+    "functions": "use def; never legacy fn",
+    "strong_typing": "Prefer explicit types for public APIs and performance-critical code.",
+    "feature_policy": {
+      "stable_language_features": "prefer",
+      "stable_stdlib_apis": "prefer",
+      "nightly_or_experimental": "explicitly gated and justified",
+      "unknown_api": "verify before use; never hallucinate"
+    }
+  },
+  "modules_and_packages": {
+    "module_extension": ".mojo",
+    "package_marker": "__init__.mojo",
+    "principles": [
+      "small cohesive packages",
+      "narrow public APIs",
+      "hardware-independent interfaces above vendor-specific implementations",
+      "do not reproduce C++ header/module architecture mechanically"
+    ]
+  },
+  "ownership": {
+    "principle": "Ownership, mutability, lifetime, and resource cleanup must be explicit.",
+    "argument_and_reference_conventions": {
+      "read": "prefer for immutable borrowed access when appropriate",
+      "mut": "use for mutable borrowed access when appropriate",
+      "ref": "use for named references when a copy is not intended",
+      "var_or_owned": "use when ownership transfer/consumption is intentional"
+    },
+    "origins_and_lifetimes": "Treat origin/lifetime correctness as part of API design.",
+    "pointers": {
+      "preferred": "safe Pointer operations",
+      "unsafe": "unsafe_ operations only in isolated, justified, bounded, tested low-level code",
+      "manual_allocation": "only for low-level structures, FFI, or measured hot paths"
+    },
+    "destruction": {
+      "automatic": "__deinit__(deinit self) when custom automatic cleanup is required",
+      "explicit": "@explicit_destroy when cleanup is ordered, selectable, expensive, or may fail"
+    }
+  },
+  "resource_management": {
+    "rule": "Every resource must have a deterministic destruction path.",
+    "resources_include": [
+      "heap allocations",
+      "GPU buffers and device resources",
+      "files",
+      "sockets",
+      "IPC handles",
+      "locks",
+      "threads/tasks",
+      "foreign-library handles"
+    ]
+  },
+  "error_handling": {
+    "native_mechanisms": [
+      "raises",
+      "try",
+      "except",
+      "Error"
+    ],
+    "errors_must_not_be_silently_ignored": true,
+    "boundary_context_required_for": [
+      "I/O",
+      "IPC/network",
+      "FFI",
+      "GPU allocation/launch",
+      "model/runtime calls",
+      "parsing untrusted input"
+    ]
+  },
+  "type_safety": {
+    "prefer": [
+      "struct",
+      "traits",
+      "parameterization",
+      "constraints",
+      "comptime",
+      "Optional for nullability when appropriate",
+      "expressive domain types",
+      "immutable borrowed inputs when practical"
+    ],
+    "avoid": [
+      "magic sentinel values",
+      "boolean-flag-heavy APIs",
+      "hidden global mutable state",
+      "unverified unsafe pointer manipulation",
+      "unnecessary dynamic Python objects in hot paths"
+    ]
+  },
+  "architecture": {
+    "principles": [
+      "high cohesion",
+      "low coupling",
+      "explicit dependencies",
+      "explicit ownership and lifetime boundaries",
+      "composition over inheritance-like designs",
+      "small focused modules/packages",
+      "avoid unnecessary abstraction",
+      "keep domain logic separate from hardware-specific optimization"
+    ],
+    "dependency_injection": {
+      "prefer": [
+        "constructor/function parameters",
+        "explicit composition",
+        "traits/parameterization when useful"
+      ],
+      "avoid": [
+        "service locator patterns",
+        "reflection-heavy containers",
+        "hidden dependency graphs"
+      ]
+    }
+  },
+  "cpu_performance": {
+    "prefer_when_measured_or_appropriate": [
+      "SIMD",
+      "vectorization",
+      "contiguous memory",
+      "alignment",
+      "cache locality",
+      "tiling/blocking",
+      "compile-time specialization"
+    ],
+    "avoid": [
+      "unnecessary allocations",
+      "unnecessary copies",
+      "scalar hot loops when a verified SIMD implementation is appropriate"
+    ]
+  },
+  "gpu": {
+    "default": "Mojo GPU implementation",
+    "portable_first": true,
+    "project_owned_cuda_cpp": "forbidden by default",
+    "project_owned_hip_cpp": "forbidden by default",
+    "project_owned_triton": "forbidden by default",
+    "allowed_hardware": [
+      "NVIDIA",
+      "AMD",
+      "Apple when supported by the installed toolchain"
+    ],
+    "design": [
+      "generic algorithm semantics",
+      "generic Mojo kernel/layout",
+      "NVIDIA specialization only when justified",
+      "AMD specialization only when justified"
+    ],
+    "reason_about": [
+      "grid/block/thread mapping",
+      "warp/wavefront behavior",
+      "global/shared/local memory",
+      "coalescing",
+      "alignment",
+      "register pressure",
+      "synchronization",
+      "occupancy",
+      "tiling",
+      "vectorization",
+      "host/device transfers",
+      "arithmetic intensity",
+      "launch overhead"
+    ],
+    "rule": "Hardware-specific code must stay behind a Mojo interface and be justified by measurement or a hard platform constraint."
+  },
+  "ai_hpc": {
+    "kernel_domains": [
+      "matrix multiplication",
+      "attention",
+      "softmax",
+      "normalization",
+      "reductions",
+      "embeddings",
+      "similarity search",
+      "quantization",
+      "tensor transformations",
+      "batching",
+      "retrieval compute"
+    ],
+    "implementation_order": [
+      "check verified Mojo/MAX implementation",
+      "reuse when suitable",
+      "otherwise implement in Mojo",
+      "add correctness tests",
+      "benchmark before claiming performance gains"
+    ]
+  },
+  "interop": {
+    "python": {
+      "allowed_for": [
+        "orchestration",
+        "experimentation",
+        "framework/API boundaries",
+        "dependencies without a suitable Mojo path"
+      ],
+      "hot_path_rule": "Do not move performance-critical Mojo code to Python merely for implementation convenience."
+    },
+    "c": {
+      "allowed_for": [
+        "OS/system APIs",
+        "stable ABI boundaries",
+        "native dependencies"
+      ],
+      "rule": "Keep the boundary narrow and explicit."
+    },
+    "cpp": {
+      "default": "do not introduce as project implementation language",
+      "exception": "only when an unavoidable third-party/platform constraint has no suitable Mojo/C/Python boundary"
+    }
+  },
+  "performance": {
+    "principles": [
+      "correctness first",
+      "measure before optimizing",
+      "benchmark representative workloads",
+      "avoid unnecessary allocations and copies",
+      "prefer contiguous/cache-friendly layouts",
+      "prefer zero-cost or compile-time specialization where useful",
+      "separate algorithmic improvements from hardware-specific tuning"
+    ]
+  },
+  "testing": {
+    "framework": "std.testing",
+    "suite": "TestSuite",
+    "discovery": "test_ prefix",
+    "requirements": [
+      "new behavior should be testable",
+      "bug fixes should include regression tests when practical",
+      "test boundaries and failure paths",
+      "test ownership/lifetime-sensitive behavior when relevant",
+      "use tolerance-aware numerical assertions",
+      "compare CPU/GPU and available vendor backends when applicable"
+    ]
+  },
+  "benchmarking": {
+    "framework": "std.benchmark",
+    "requirements": [
+      "warm up accelerators before comparison",
+      "use representative workload sizes",
+      "record latency and/or throughput",
+      "state hardware and input shape when reporting results",
+      "do not claim one backend is faster without reproducible evidence"
+    ]
+  },
+  "formatting": {
+    "formatter": "mojo format",
+    "required": true,
+    "rule": "Format changed Mojo source files before considering the change complete."
+  },
+  "security_and_correctness": {
+    "requirements": [
+      "validate untrusted external input",
+      "validate lengths, shapes, strides, and bounds",
+      "check integer conversions where overflow/truncation matters",
+      "avoid out-of-bounds memory access",
+      "avoid dangling references",
+      "avoid use-after-destroy",
+      "avoid uninitialized memory reads",
+      "avoid data races",
+      "treat unsafe_ operations as audited low-level code"
+    ]
+  },
+  "dependencies": {
+    "policy": [
+      "prefer stable Mojo standard-library functionality when adequate",
+      "inspect existing dependencies before adding alternatives",
+      "avoid duplicate libraries solving the same concern",
+      "prefer maintained dependencies",
+      "pin or constrain dependencies when reproducibility matters"
+    ]
+  },
+  "comments": {
+    "prefer": [
+      "explain why",
+      "document invariants",
+      "document ownership/lifetime assumptions",
+      "document synchronization assumptions",
+      "document tensor/layout assumptions",
+      "document non-obvious performance decisions"
+    ],
+    "avoid": [
+      "comments that merely restate obvious code"
+    ]
+  },
+  "migration": {
+    "old_cpp_cuda_role": "removed; this repository is Mojo-only",
+    "per_component_process": [
+      "define idiomatic Mojo API from the spec",
+      "implement in Mojo rather than transliterating other languages",
+      "add tests",
+      "validate numerical equivalence when multiple backends exist",
+      "benchmark performance-sensitive paths"
+    ]
+  },
+  "generated_code_policy": {
+    "before_modification": [
+      "read this standard completely",
+      "read every .md in .cursor/specs/ except README.md and files starting with _",
+      "inspect relevant existing source and tests",
+      "identify public contracts",
+      "identify ownership/lifetime/resource boundaries",
+      "identify CPU/GPU and interoperability boundaries",
+      "verify unstable or unfamiliar Mojo/MAX APIs"
+    ],
+    "during_modification": [
+      "write idiomatic Mojo 1.0+",
+      "preserve architectural consistency",
+      "prefer existing abstractions over duplicates",
+      "keep ownership/lifetimes explicit",
+      "keep portable GPU logic separate from vendor specialization",
+      "do not introduce unnecessary dependencies"
+    ],
+    "after_modification": [
+      "run or recommend relevant Mojo tests",
+      "run mojo format",
+      "verify ownership and destruction paths",
+      "inspect unsafe_ operations",
+      "verify error handling",
+      "verify CPU/GPU numerical behavior when relevant",
+      "check for unnecessary allocations/copies",
+      "benchmark performance-sensitive changes when required by the spec"
+    ]
+  },
+  "forbidden_defaults": [
+    "Do not create project-owned C++/CUDA/HIP/Triton implementations.",
+    "Do not introduce XMake/CMake/Make/Meson for Mojo source.",
+    "Do not use legacy fn syntax.",
+    "Do not hallucinate Mojo or MAX APIs.",
+    "Do not use nightly-only features silently in stable code.",
+    "Do not use unsafe_ memory operations without a narrow justification.",
+    "Do not reintroduce project-owned C++/CUDA/HIP/Triton.",
+    "Do not add hardware-specific specialization before a portable implementation unless the spec requires it."
+  ],
+  "exceptions": {
+    "rule": "A rule may be overridden only by an explicit spec/user instruction, interoperability/platform constraint, or measured performance requirement.",
+    "require": [
+      "state the reason",
+      "minimize the scope",
+      "preserve safety and portability where possible",
+      "add tests/benchmarks appropriate to the exception"
+    ]
+  }
+}

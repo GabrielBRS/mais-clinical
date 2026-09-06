@@ -1,0 +1,7 @@
+app_name = "ai-orchestrator-python"
+app_env = "testing"
+log_level = "warning"
+http_port = 0
+grpc_port = 0
+llm_provider = "local"
+storage_engine = "fjall"

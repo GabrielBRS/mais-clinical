@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package vision.v1;
+
+enum Status {
+  STATUS_UNSPECIFIED = 0;
+  STATUS_OK = 1;
+  STATUS_ERROR = 2;
+}
+
+message Box {
+  float x = 1;
+  float y = 2;
+  float w = 3;
+  float h = 4;
+  float score = 5;
+  int32 class_id = 6;
+}
+
+message ImageMeta {
+  int32 width = 1;
+  int32 height = 2;
+  int32 channels = 3;
+}

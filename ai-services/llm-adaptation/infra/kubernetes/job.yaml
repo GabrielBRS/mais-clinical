@@ -1,0 +1,12 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: llm-adaptation
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: train
+          image: llm-adaptation:0.1.0
+          args: ["train", "--recipe", "recipes/qwen/sft_lora.yaml"]

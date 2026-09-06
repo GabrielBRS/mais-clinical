@@ -1,0 +1,7 @@
+name: mistral-sft-full
+extends:
+  model: configs/model/mistral.yaml
+  data: configs/data/sft.yaml
+  training: configs/training/full.yaml
+  distributed: configs/distributed/single_gpu.yaml
+  evaluation: configs/evaluation/generation.yaml

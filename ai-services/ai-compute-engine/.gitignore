@@ -1,0 +1,12 @@
+# Pixi
+.pixi/
+
+# Build
+build/
+*.mojoc
+
+# Local sockets / runtime
+*.sock
+
+# MacOS Cache
+.DS_Store

@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package ai.orchestrator.v1;
+
+import "common.proto";
+
+// Espelho do compute-engine (ai.compute.v1) para o client gRPC/IPC.
+service Inference {
+  rpc Health(HealthRequest) returns (HealthResponse);
+  rpc Generate(GenerateRequest) returns (GenerateResponse);
+}
+
+message HealthRequest {}
+
+message HealthResponse {
+  Status status = 1;
+  string version = 2;
+}
+
+message GenerateRequest {
+  string model_id = 1;
+  string prompt = 2;
+}
+
+message GenerateResponse {
+  Status status = 1;
+  string text = 2;
+}

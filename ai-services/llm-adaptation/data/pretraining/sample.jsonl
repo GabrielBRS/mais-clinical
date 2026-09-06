@@ -1,0 +1,2 @@
+{"id":"pt-1","text":"Continued pretraining adapts a base model to a new domain corpus with a causal language modeling objective."}
+{"id":"pt-2","text":"Packing concatenates tokenized documents up to the context window to improve training throughput."}

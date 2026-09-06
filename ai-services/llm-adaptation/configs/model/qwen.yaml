@@ -1,0 +1,4 @@
+family: qwen
+name: Qwen2.5-7B
+chat_template: chatml
+max_seq_len: 2048

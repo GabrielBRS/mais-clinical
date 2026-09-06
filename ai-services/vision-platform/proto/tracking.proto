@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package vision.v1;
+
+import "common.proto";
+import "detection.proto";
+
+message Track {
+  int32 id = 1;
+  Box box = 2;
+  int32 age = 3;
+  int32 hits = 4;
+}
+
+message TrackRequest {
+  repeated Detection detections = 1;
+}
+
+message TrackResponse {
+  Status status = 1;
+  repeated Track tracks = 2;
+}

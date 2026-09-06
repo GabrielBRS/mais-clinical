@@ -1,0 +1,19 @@
+set dotenv-load := false
+
+default:
+    @just --list
+
+engine:
+    pixi run build
+
+engine-test:
+    pixi run test-engine
+
+runtime-test:
+    cd vision-runtime && cargo test
+
+train-test:
+    pixi run test-train
+
+test:
+    pixi run test

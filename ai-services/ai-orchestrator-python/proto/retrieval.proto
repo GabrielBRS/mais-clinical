@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package ai.orchestrator.v1;
+
+import "common.proto";
+
+// Espelho do data-engine para o client gRPC/IPC.
+service Retrieval {
+  rpc Health(HealthRequest) returns (HealthResponse);
+  rpc Retrieve(RetrieveRequest) returns (RetrieveResponse);
+}
+
+message HealthRequest {}
+
+message HealthResponse {
+  Status status = 1;
+  string version = 2;
+}
+
+message RetrieveRequest {
+  string query = 1;
+  int32 top_k = 2;
+}
+
+message RetrieveResponse {
+  Status status = 1;
+  repeated string texts = 2;
+}

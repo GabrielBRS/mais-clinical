@@ -1,0 +1,7 @@
+name: llama-dpo
+extends:
+  model: configs/model/llama.yaml
+  data: configs/data/preference.yaml
+  training: configs/training/dpo.yaml
+  distributed: configs/distributed/single_gpu.yaml
+  evaluation: configs/evaluation/generation.yaml

@@ -1,0 +1,7 @@
+app_name = "ai-orchestrator-python"
+app_env = "production"
+log_level = "info"
+http_port = 8080
+grpc_port = 50051
+llm_provider = "openai"
+storage_engine = "redb"

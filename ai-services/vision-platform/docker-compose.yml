@@ -1,0 +1,24 @@
+services:
+  inference-engine:
+    build:
+      context: ./inference-engine
+    ports:
+      - "8083:8083"
+      - "50054:50054"
+    environment:
+      VPE_IPC_PATH: /tmp/vision-inference.sock
+    volumes:
+      - /tmp:/tmp
+
+  vision-runtime:
+    build:
+      context: ./vision-runtime
+    ports:
+      - "8084:8084"
+      - "50055:50055"
+    depends_on:
+      - inference-engine
+    environment:
+      VRT_INFERENCE_IPC: /tmp/vision-inference.sock
+    volumes:
+      - /tmp:/tmp

@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "standard": {
+    "name": "Modern Mojo Engineering Standard",
+    "version": "2.0.0",
+    "status": "mandatory",
+    "language": "Mojo",
+    "target_standard": "Mojo 1.0+ stable",
+    "project": "vision-platform"
+  },
+  "this_repository": {
+    "primary_language": "Mojo",
+    "source_extension": ".mojo",
+    "specs_dir": ".cursor/specs/",
+    "rule_files": [
+      ".cursor/rules/mojo-language.mdc",
+      ".cursor/rules/mojo-gpu.mdc",
+      ".cursor/rules/mojo-architecture.mdc"
+    ],
+    "stable_language_baseline": "Mojo 1.0.x",
+    "build_tool": "mojo CLI",
+    "environment_management": [
+      "pixi"
+    ],
+    "gpu_policy": "portable Mojo first; vendor specialization only when justified",
+    "legacy_cpp_cuda": "removed; do not reintroduce project-owned C++/CUDA in inference-engine",
+    "python_training": "model-training stays Python; managed with pixi, not uv",
+    "do_not_fake": [
+      "legacy fn syntax",
+      "unverified Mojo/MAX APIs",
+      "nightly-only APIs in stable code without an explicit feature/toolchain note",
+      "hardware targets not supported by the installed Mojo version",
+      "CUDA C++/HIP source as the default GPU implementation",
+      "C++26/XMake/CMake requirements inherited from the old implementation",
+      "uv as the Python environment manager"
+    ]
+  },
+  "toolchain": {
+    "version_check": "mojo --version",
+    "run": "mojo <path>.mojo",
+    "build": "mojo build <path>.mojo -o <output>",
+    "format": "mojo format <sources...>",
+    "testing": "std.testing + TestSuite, executed with mojo",
+    "benchmarking": "std.benchmark",
+    "dependency_environment": {
+      "preferred": [
+        "pixi"
+      ],
+      "rule": "Use pixi. Do not introduce uv, xmake, CMake, Make, or Meson for project-owned code."
+    },
+    "accelerator_targeting": "Use only --target-accelerator values verified by the installed version/current stable docs."
+  },
+  "language_policy": {
+    "modern_mojo_only": true,
+    "minimum_target": "Mojo 1.0 stable",
+    "functions": "use def; never legacy fn",
+    "strong_typing": "Prefer explicit types for public APIs and performance-critical code."
+  },
+  "modules_and_packages": {
+    "module_extension": ".mojo",
+    "package_marker": "__init__.mojo"
+  },
+  "gpu": {
+    "default": "Mojo GPU implementation",
+    "portable_first": true,
+    "project_owned_cuda_cpp": "forbidden by default"
+  },
+  "interop": {
+    "python": {
+      "allowed_for": [
+        "orchestration",
+        "experimentation",
+        "training in model-training",
+        "framework/API boundaries"
+      ]
+    },
+    "c": {
+      "allowed_for": [
+        "OS/system APIs",
+        "unix sockets"
+      ],
+      "rule": "Keep the boundary narrow and explicit."
+    },
+    "cpp": {
+      "default": "do not introduce as project implementation language"
+    }
+  },
+  "forbidden_defaults": [
+    "Do not create project-owned C++/CUDA/HIP/Triton implementations.",
+    "Do not introduce XMake/CMake/Make/Meson for Mojo source.",
+    "Do not use uv for Python environments.",
+    "Do not use legacy fn syntax.",
+    "Do not hallucinate Mojo or MAX APIs."
+  ]
+}

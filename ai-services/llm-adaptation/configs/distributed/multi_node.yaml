@@ -1,0 +1,3 @@
+strategy: ddp
+nodes: 4
+gpus: 8

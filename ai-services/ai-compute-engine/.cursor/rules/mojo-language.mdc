@@ -1,0 +1,29 @@
+---
+description: Mojo 1.0+ language, typing, and source of truth
+alwaysApply: true
+---
+
+# Mojo language
+
+- Primary language is **Mojo 1.0+**. New project-owned source uses `.mojo`.
+- Use `def`. Never generate legacy `fn`.
+- Prefer idiomatic Mojo over literal C++/CUDA/Python/Rust translation.
+- Prefer explicit types on public APIs and hot paths.
+- Prefer `struct`, traits, parameterization, `comptime`, ownership, `SIMD`, `Span`.
+- Do not introduce Python-style dynamic behavior when a static abstraction fits.
+
+```mojo
+def add(a: Int, b: Int) -> Int:
+    return a + b
+```
+
+When unsure about syntax or stdlib APIs, verify against:
+
+- https://mojolang.org/docs/
+- https://mojolang.org/docs/manual/
+- https://mojolang.org/docs/std/
+- https://github.com/modular/modular
+
+Do not hallucinate APIs. If unverified, say so and choose a documented alternative.
+Do not use tutorial-era syntax that conflicts with Mojo 1.0 docs.
+Nightly/experimental APIs must be gated and justified.

@@ -1,0 +1,4 @@
+method: continued_pretraining
+adapter: none
+epochs: 1
+lr: 1.0e-5

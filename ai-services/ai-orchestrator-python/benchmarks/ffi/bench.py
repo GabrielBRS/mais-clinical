@@ -1,0 +1,1 @@
+print("ffi bench placeholder")

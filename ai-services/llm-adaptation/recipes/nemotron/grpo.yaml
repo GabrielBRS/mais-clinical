@@ -1,0 +1,7 @@
+name: nemotron-grpo
+extends:
+  model: configs/model/nemotron.yaml
+  data: configs/data/preference.yaml
+  training: configs/training/grpo.yaml
+  distributed: configs/distributed/single_gpu.yaml
+  evaluation: configs/evaluation/generation.yaml

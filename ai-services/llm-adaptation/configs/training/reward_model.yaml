@@ -1,0 +1,4 @@
+method: reward_model
+adapter: none
+epochs: 1
+lr: 1.0e-5

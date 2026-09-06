@@ -1,0 +1,4 @@
+family: nemotron
+name: Nemotron-8B
+chat_template: chatml
+max_seq_len: 4096

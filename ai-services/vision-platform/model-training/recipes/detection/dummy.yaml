@@ -1,0 +1,3 @@
+task: detection
+backbone: dummy
+epochs: 1

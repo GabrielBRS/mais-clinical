@@ -1,0 +1,5 @@
+stages:
+  - decode
+  - resize
+  - infer
+  - nms

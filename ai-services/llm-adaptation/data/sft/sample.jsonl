@@ -1,0 +1,5 @@
+{"id":"sft-1","instruction":"Explain ACE1 framing.","response":"ACE1 is a 20-byte little-endian IPC header used by the three engines."}
+{"id":"sft-2","instruction":"What is LoRA?","response":"LoRA trains low-rank adapters on attention and MLP projections."}
+{"id":"sft-3","instruction":"What is QLoRA?","response":"QLoRA keeps the base model in 4-bit and trains LoRA adapters."}
+{"id":"sft-4","messages":[{"role":"user","content":"Summarize SFT."},{"role":"assistant","content":"Supervised fine-tuning teaches the model to follow instruction and chat examples."}]}
+{"id":"sft-5","instruction":"Name a preference method.","response":"DPO aligns a policy using chosen and rejected completions."}

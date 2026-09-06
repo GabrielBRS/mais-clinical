@@ -1,0 +1,4 @@
+family: mistral
+name: Mistral-7B
+chat_template: mistral
+max_seq_len: 2048

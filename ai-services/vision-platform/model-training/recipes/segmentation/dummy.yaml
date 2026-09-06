@@ -1,0 +1,3 @@
+task: segmentation
+backbone: dummy
+epochs: 1

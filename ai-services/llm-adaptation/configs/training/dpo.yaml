@@ -1,0 +1,5 @@
+method: dpo
+adapter: lora
+epochs: 1
+lr: 5.0e-7
+beta: 0.1

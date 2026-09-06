@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package vision.v1;
+
+import "common.proto";
+
+message Detection {
+  Box box = 1;
+  string label = 2;
+  int32 track_id = 3;
+}
+
+message DetectRequest {
+  bytes image = 1;
+  ImageMeta meta = 2;
+  float score_threshold = 3;
+  float nms_iou = 4;
+}
+
+message DetectResponse {
+  Status status = 1;
+  repeated Detection detections = 2;
+}

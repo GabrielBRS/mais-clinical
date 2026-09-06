@@ -1,0 +1,23 @@
+---
+description: Portable Mojo GPU policy; no project-owned CUDA/HIP
+alwaysApply: true
+---
+
+# GPU and accelerators
+
+Use Mojo GPU APIs first. Do not emit CUDA C++, HIP, or Triton as the default GPU implementation.
+
+```text
+algorithm semantics
+    -> generic Mojo kernel/layout
+        -> NVIDIA specialization only if measured/required
+        -> AMD specialization only if measured/required
+```
+
+Keep algorithm, tensor/layout, and scheduling separate from vendor code.
+
+Reason about grid/block/thread mapping, warps/wavefronts, global/shared/local memory, coalescing, registers, sync, occupancy, tiling, vectorization, transfers, and arithmetic intensity.
+
+CPU numerical work: consider `SIMD` before external native libraries.
+
+For matmul, attention, softmax, norms, reductions, embeddings, search, quantization: check Modular/MAX kernels first, reuse when suitable, otherwise implement in Mojo, then test, then benchmark.

@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package ai.orchestrator.v1;
+
+import "common.proto";
+
+service AgentService {
+  rpc Health(HealthRequest) returns (HealthResponse);
+  rpc Execute(ExecuteAgentRequest) returns (ExecuteAgentResponse);
+}
+
+message HealthRequest {}
+
+message HealthResponse {
+  Status status = 1;
+  string version = 2;
+  bool ready = 3;
+}
+
+message ExecuteAgentRequest {
+  string agent_id = 1;
+  string prompt = 2;
+  bool retrieve = 3;
+}
+
+message ExecuteAgentResponse {
+  Status status = 1;
+  string execution_id = 2;
+  string text = 3;
+}

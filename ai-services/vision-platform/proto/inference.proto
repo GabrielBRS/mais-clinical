@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package vision.v1;
+
+import "common.proto";
+import "detection.proto";
+
+service InferenceService {
+  rpc Health(HealthRequest) returns (HealthResponse);
+  rpc Classify(ClassifyRequest) returns (ClassifyResponse);
+  rpc Detect(DetectRequest) returns (DetectResponse);
+}
+
+message HealthRequest {}
+
+message HealthResponse {
+  Status status = 1;
+  string version = 2;
+}
+
+message ClassifyRequest {
+  bytes image = 1;
+  ImageMeta meta = 2;
+}
+
+message ClassifyResponse {
+  Status status = 1;
+  int32 class_id = 2;
+  float score = 3;
+  string label = 4;
+}

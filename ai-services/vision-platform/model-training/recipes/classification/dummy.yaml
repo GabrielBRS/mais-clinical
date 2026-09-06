@@ -1,0 +1,3 @@
+task: classification
+backbone: dummy
+epochs: 1

@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package vision.v1;
+
+import "common.proto";
+import "detection.proto";
+import "inference.proto";
+import "tracking.proto";
+
+service VisionService {
+  rpc Health(HealthRequest) returns (HealthResponse);
+  rpc Detect(DetectRequest) returns (DetectResponse);
+  rpc Track(TrackRequest) returns (TrackResponse);
+}

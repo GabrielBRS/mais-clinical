@@ -1,0 +1,3 @@
+name: blob-detector
+task: detection
+backend: custom

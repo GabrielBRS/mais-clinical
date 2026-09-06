@@ -1,0 +1,5 @@
+method: grpo
+adapter: lora
+epochs: 1
+lr: 1.0e-6
+group_size: 4

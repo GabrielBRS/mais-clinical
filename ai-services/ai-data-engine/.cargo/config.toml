@@ -1,0 +1,7 @@
+[alias]
+t = "test"
+b = "build"
+c = "clippy --all-targets -- -D warnings"
+
+[net]
+git-fetch-with-cli = true

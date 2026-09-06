@@ -1,0 +1,14 @@
+[workspace]
+name = "vision-platform"
+version = "0.1.0"
+description = "Vision platform: Mojo inference engine + Python training"
+authors = ["GabrielBRS"]
+channels = ["conda-forge"]
+platforms = ["linux-64"]
+
+[tasks]
+test-engine = "env -u PIXI_PROJECT_MANIFEST pixi run --manifest-path inference-engine/pixi.toml test"
+test-train = "env -u PIXI_PROJECT_MANIFEST pixi run --manifest-path model-training/pixi.toml test"
+build = "env -u PIXI_PROJECT_MANIFEST pixi run --manifest-path inference-engine/pixi.toml build"
+format = "env -u PIXI_PROJECT_MANIFEST pixi run --manifest-path inference-engine/pixi.toml format"
+test = { depends-on = ["test-engine", "test-train"] }

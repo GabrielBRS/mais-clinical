@@ -1,0 +1,3 @@
+source: file
+path: datasets/test
+fps: 30

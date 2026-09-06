@@ -1,0 +1,20 @@
+---
+description: Packages, ownership, testing, and Mojo-only project rules
+alwaysApply: true
+---
+
+# Architecture
+
+Read `.cursor/standards/mojo-engineering-standard.json` and every `.cursor/specs/*.md` except `README.md` and `_*.md` before changing code.
+
+Packages: a directory is importable only with `__init__.mojo`. Keep public APIs narrow.
+
+Ownership: transfer when the callee should own; default/immutable borrow to read; `mut` to mutate; `ref` for named references. Every resource needs a destructor path. Isolate `unsafe_` pointer ops.
+
+Errors: use `raises` / `try` / `except`. Never swallow failures at I/O, FFI, GPU, or model boundaries.
+
+Testing: `std.testing` + `TestSuite`, functions named `test_`. Numerical asserts use tolerance. Compare CPU/GPU and vendors when both exist.
+
+Build: `mojo`, `mojo build`, `mojo format`. Environment: `pixi` (this repo). Do not add uv, CMake, xmake, Make, or Meson.
+
+This repository is Mojo-only. Do not add project-owned C++, CUDA, HIP, or Triton.

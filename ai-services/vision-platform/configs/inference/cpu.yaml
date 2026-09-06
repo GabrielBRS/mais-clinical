@@ -1,0 +1,3 @@
+device: cpu
+batch: 1
+ipc: /tmp/vision-inference.sock

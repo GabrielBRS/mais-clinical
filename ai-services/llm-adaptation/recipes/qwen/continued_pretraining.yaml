@@ -1,0 +1,7 @@
+name: qwen-continued-pretraining
+extends:
+  model: configs/model/qwen.yaml
+  data: configs/data/pretraining.yaml
+  training: configs/training/continued_pretraining.yaml
+  distributed: configs/distributed/single_gpu.yaml
+  evaluation: configs/evaluation/generation.yaml

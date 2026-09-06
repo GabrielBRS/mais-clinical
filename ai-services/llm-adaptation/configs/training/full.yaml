@@ -1,0 +1,4 @@
+method: sft
+adapter: none
+epochs: 1
+lr: 2.0e-5

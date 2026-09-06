@@ -1,0 +1,14 @@
+[project]
+name = "vision-training"
+version = "0.1.0"
+description = "Treino de modelos de visão — classification, detection, segmentation"
+authors = [{ name = "GabrielBRS" }]
+requires-python = ">=3.13"
+dependencies = ["pyyaml>=6.0"]
+
+[project.scripts]
+vision-training = "vision_training:main"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

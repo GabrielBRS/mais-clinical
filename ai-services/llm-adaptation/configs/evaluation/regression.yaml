@@ -1,0 +1,2 @@
+task: regression
+tolerance: 0.05

@@ -1,0 +1,8 @@
+[
+  {
+    "name": "qwen-sft-lora",
+    "version": "0.1.0",
+    "family": "qwen",
+    "method": "sft"
+  }
+]

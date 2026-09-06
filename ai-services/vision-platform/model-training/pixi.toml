@@ -1,0 +1,20 @@
+[workspace]
+name = "vision-training"
+version = "0.1.0"
+description = "Treino de modelos de visão — classification, detection, segmentation"
+authors = ["GabrielBRS"]
+channels = ["conda-forge"]
+platforms = ["linux-64"]
+
+[dependencies]
+python = ">=3.13,<3.14"
+pyyaml = ">=6.0"
+pytest = ">=8.3"
+
+[activation]
+env = { PYTHONPATH = "src" }
+
+[tasks]
+test = "pytest"
+train = "python -m vision_training train --recipe recipes/classification/dummy.yaml"
+export = "python -m vision_training export --recipe recipes/classification/dummy.yaml"

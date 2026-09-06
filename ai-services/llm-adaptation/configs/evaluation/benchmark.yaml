@@ -1,0 +1,4 @@
+task: benchmark
+suites:
+  - domain
+  - baseline

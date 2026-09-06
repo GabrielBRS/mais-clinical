@@ -1,0 +1,54 @@
+syntax = "proto3";
+
+package ai.data.v1;
+
+// Tipos compartilhados entre IPC, gRPC e HTTP.
+// Framing IPC é o mesmo ACE1 do compute-engine.
+
+enum StatusCode {
+  STATUS_OK = 0;
+  STATUS_INVALID_ARGUMENT = 1;
+  STATUS_NOT_FOUND = 2;
+  STATUS_ALREADY_EXISTS = 3;
+  STATUS_UNAVAILABLE = 4;
+  STATUS_UNIMPLEMENTED = 5;
+  STATUS_INTERNAL = 6;
+}
+
+message Status {
+  StatusCode code = 1;
+  string message = 2;
+}
+
+message Metadata {
+  map<string, string> fields = 1;
+}
+
+message Embedding {
+  repeated float values = 1;
+}
+
+message Document {
+  string id = 1;
+  string text = 2;
+  Metadata metadata = 3;
+}
+
+message Chunk {
+  string id = 1;
+  string document_id = 2;
+  string text = 3;
+  int32 index = 4;
+  Embedding embedding = 5;
+  Metadata metadata = 6;
+}
+
+message Score {
+  float value = 1;
+  string source = 2;
+}
+
+message ScoredChunk {
+  Chunk chunk = 1;
+  Score score = 2;
+}

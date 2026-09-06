@@ -1,0 +1,6 @@
+method: sft
+adapter: qlora
+epochs: 1
+lr: 2.0e-4
+lora_rank: 16
+lora_alpha: 32
