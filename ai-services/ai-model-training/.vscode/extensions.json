@@ -1,0 +1,7 @@
+{
+  "recommendations": [
+    "modular-mojotools.vscode-mojo",
+    "ms-python.python",
+    "redhat.vscode-yaml"
+  ]
+}

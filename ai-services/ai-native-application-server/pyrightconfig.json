@@ -1,0 +1,22 @@
+{
+  "pythonVersion": "3.13",
+  "extraPaths": ["src"],
+  "include": [
+    "src/ai_orchestrator",
+    "tests",
+    "examples",
+    "benchmarks"
+  ],
+  "exclude": [
+    "**/.pixi",
+    "**/.venv",
+    "**/__pycache__",
+    "**/target",
+    "**/build",
+    "src/domain",
+    "src/application",
+    "src/bootstrap",
+    "src/transport",
+    "src/infrastructure"
+  ]
+}

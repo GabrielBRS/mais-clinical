@@ -1,13 +1,14 @@
 [workspace]
 name = "ai-orchestrator"
 version = "0.1.0"
-description = "Mojo-first agent orchestrator"
+description = "Internal Mojo agent runtime for the AI Native Application Server"
 authors = ["GabrielBRS"]
 channels = ["https://conda.modular.com/max/", "conda-forge"]
 platforms = ["linux-64"]
 
 [dependencies]
 mojo = ">=1.0.0,<2"
+just = ">=1.40,<2"
 
 [tasks]
 test = "mojo run -I src tests/mojo/test_core.mojo && mojo run -I src tests/mojo/test_graph.mojo && mojo run -I src tests/mojo/test_agent.mojo && mojo run -I src tests/mojo/test_compute.mojo && mojo run -I src tests/mojo/test_ipc.mojo && mojo run -I src tests/mojo/test_interop.mojo && mojo run -I src tests/mojo/test_http.mojo"
@@ -22,3 +23,7 @@ example-ipc = "mojo run -I src examples/ipc_client.mojo"
 bench = "mojo run -I src benchmarks/orchestration.mojo && mojo run -I src benchmarks/retrieval.mojo && mojo run -I src benchmarks/routing.mojo && mojo run -I src benchmarks/serialization.mojo"
 format = "find src tests/mojo examples benchmarks scripts -name '*.mojo' -print0 | xargs -0 mojo format"
 version = "mojo --version"
+rust-test = "cargo test --workspace"
+rust-lint = "cargo fmt --all -- --check && cargo clippy --workspace --all-targets -- -D warnings"
+rust-build = "cargo build --locked --release -p ai-native-runtime"
+rust-run = "cargo run --locked -p ai-native-runtime"

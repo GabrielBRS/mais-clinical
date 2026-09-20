@@ -1,0 +1,1 @@
+"""CLI transport adapter."""

@@ -45,7 +45,7 @@ struct Application:
     def run(mut self) raises:
         self.orchestrator.lifecycle.start()
         print(
-            "ai-orchestrator",
+            "ai-agent-engine internal",
             self.orchestrator.health().version,
             "http://",
             self.settings.http_host,

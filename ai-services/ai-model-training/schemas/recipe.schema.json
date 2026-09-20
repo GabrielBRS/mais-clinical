@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://orzyon.local/schemas/ai-model-training-recipe-1.0.json",
+  "title": "AI Model Training Recipe",
+  "type": "object",
+  "required": ["name", "extends"],
+  "properties": {
+    "name": {"type": "string", "minLength": 1},
+    "extends": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "model": {"type": "string", "pattern": "^configs/model/.+\\.ya?ml$"},
+        "data": {"type": "string", "pattern": "^configs/data/.+\\.ya?ml$"},
+        "training": {"type": "string", "pattern": "^configs/training/.+\\.ya?ml$"},
+        "distributed": {"type": "string", "pattern": "^configs/distributed/.+\\.ya?ml$"},
+        "evaluation": {"type": "string", "pattern": "^configs/evaluation/.+\\.ya?ml$"}
+      }
+    },
+    "model": {"type": "object"},
+    "data": {"type": "object"},
+    "training": {"type": "object"},
+    "distributed": {"type": "object"},
+    "evaluation": {"type": "object"}
+  },
+  "additionalProperties": false
+}

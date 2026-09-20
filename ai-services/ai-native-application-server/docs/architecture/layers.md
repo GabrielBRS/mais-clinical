@@ -1,10 +1,24 @@
-# Camadas Mojo
+# Camadas e ownership
 
-- `src/domain/`: tipos, regras e traits sem I/O.
-- `src/application/`: use cases, agentes, grafo, RAG e lifecycle.
-- `src/bootstrap/`: composition root e wiring.
-- `src/transport/`: HTTP (router, endpoints com handlers) e IPC ACE1.
-- `src/infrastructure/`: sockets POSIX, ambiente, compute e adapters locais.
+## Rust Application Server
 
-Em compile time, `mojo build` transforma `src/main.mojo` em `build/agentd`.
-Em runtime, somente esse binário atende os transports e executa a aplicação.
+- `domain/`: domínio de negócio tradicional;
+- `application/`: casos de uso, inclusive os que optam por invocar agentes;
+- `ports/`: contratos de bancos, mensageria, storage, integrações e
+  `AgentRuntime`;
+- `adapters/`: implementações de dados e o cliente interno do Mojo;
+- `transport/`: HTTP/gRPC público, autenticação, autorização e validação;
+- `bootstrap/`: configuração, lifecycle e composition root;
+- `observability/`: logs, métricas, tracing e correlation ID.
+
+## Mojo Agent Runtime
+
+- agentes, supervisor e registry;
+- graph, nodes, routing, workflows e state agentic;
+- tools e execution harness;
+- RAG, retrieval, embeddings e reranking agentic;
+- tokenização, inferência e kernels;
+- transport interno e health próprio.
+
+Mojo não contém API pública, autenticação de cliente, CRUD tradicional ou
+ownership da resposta HTTP externa.

@@ -1,0 +1,73 @@
+[workspace]
+name = "ai-model-training"
+version = "0.2.0"
+description = "Mojo application host with an embedded CPython training engine"
+channels = ["https://conda.modular.com/max", "conda-forge"]
+platforms = ["linux-64"]
+
+[dependencies]
+python = ">=3.13,<3.14"
+mojo = "==1.1.0"
+just = ">=1.40,<2"
+
+[pypi-dependencies]
+llm-adaptation = { path = ".", editable = true }
+pytest = ">=8.3"
+
+[activation.env]
+MOJO_PYTHON = "$CONDA_PREFIX/bin/python"
+MOJO_PYTHON_LIBRARY = "$CONDA_PREFIX/lib/libpython3.13.so"
+
+[tasks.setup]
+cmd = "python -c 'import llm_adaptation; print(llm_adaptation.__version__)'"
+
+[tasks.format]
+cmd = "mojo format src tests/mojo"
+
+[tasks.lint]
+cmd = "python -m compileall -q src/llm_adaptation && mojo build tests/mojo/test_operations.mojo -I src -o /tmp/ai-model-training-test-operations"
+
+[tasks.test-python]
+cmd = "python -m pytest tests/unit tests/smoke"
+
+[tasks.test-contract]
+cmd = "python -m pytest tests/contract"
+
+[tasks.test-integration]
+cmd = "python -m pytest tests/integration"
+depends-on = ["build"]
+
+[tasks.test-smoke]
+cmd = "python -m pytest tests/smoke"
+
+[tasks.test-mojo]
+cmd = "mojo run -I src tests/mojo/test_operations.mojo"
+
+[tasks.test]
+depends-on = ["test-python", "test-contract", "test-integration", "test-mojo"]
+
+[tasks.build]
+cmd = "mkdir -p build && mojo build -I src src/main.mojo -o build/ai-model-training -Xlinker --no-as-needed -Xlinker -L$CONDA_PREFIX/lib -Xlinker -lpython3.13 -Xlinker --as-needed -Xlinker -rpath -Xlinker $CONDA_PREFIX/lib"
+
+[tasks.run]
+cmd = "build/ai-model-training"
+depends-on = ["build"]
+
+[tasks.ai-model-training]
+cmd = "build/ai-model-training"
+depends-on = ["build"]
+
+[tasks.train-smoke]
+cmd = "build/ai-model-training train --recipe recipes/qwen/sft_lora.yaml"
+depends-on = ["build"]
+
+[tasks.benchmark]
+cmd = "python benchmarks/host_startup.py"
+depends-on = ["build"]
+
+[tasks.docker-build]
+cmd = "docker build -t ai-model-training:local ."
+
+[tasks.docker-smoke]
+cmd = "docker run --rm ai-model-training:local health"
+depends-on = ["docker-build"]

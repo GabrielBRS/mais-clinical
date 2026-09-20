@@ -3,26 +3,60 @@ set dotenv-load := false
 default:
     @just --list
 
-sync:
-    uv sync
+setup:
+    pixi install --frozen
+    pixi run setup
+
+format:
+    pixi run format
+
+lint:
+    pixi run lint
+
+test-python:
+    pixi run test-python
+
+test-mojo:
+    pixi run test-mojo
+
+test-contract:
+    pixi run test-contract
+
+test-integration:
+    pixi run test-integration
+
+test-smoke:
+    pixi run test-smoke
 
 test:
-    uv run pytest
+    pixi run test
+
+build:
+    pixi run build
+
+run *args:
+    pixi run ai-model-training {{args}}
 
 prepare recipe="recipes/qwen/sft_lora.yaml":
-    uv run llm-adaptation prepare --recipe {{recipe}}
+    pixi run ai-model-training prepare-data --recipe {{recipe}}
 
 train recipe="recipes/qwen/sft_lora.yaml":
-    uv run llm-adaptation train --recipe {{recipe}}
+    pixi run ai-model-training train --recipe {{recipe}}
 
 evaluate recipe="recipes/qwen/sft_lora.yaml":
-    uv run llm-adaptation evaluate --recipe {{recipe}}
+    pixi run ai-model-training evaluate --recipe {{recipe}}
 
 export recipe="recipes/qwen/sft_lora.yaml":
-    uv run llm-adaptation export --recipe {{recipe}}
+    pixi run ai-model-training export --recipe {{recipe}}
 
-sft-lora:
-    uv run llm-adaptation train --recipe recipes/qwen/sft_lora.yaml
+train-smoke:
+    pixi run train-smoke
 
-sft-qlora:
-    uv run llm-adaptation train --recipe recipes/qwen/sft_qlora.yaml
+docker-build:
+    pixi run docker-build
+
+docker-smoke:
+    pixi run docker-smoke
+
+benchmark:
+    pixi run benchmark

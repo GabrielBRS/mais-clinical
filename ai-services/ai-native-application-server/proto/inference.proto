@@ -4,17 +4,11 @@ package ai.orchestrator.v1;
 
 import "common.proto";
 
-// Espelho do compute-engine (ai.compute.v1) para o client gRPC/IPC.
+// Internal Mojo capability. The Rust Application Server is the only caller;
+// public clients never address inference directly.
 service Inference {
   rpc Health(HealthRequest) returns (HealthResponse);
   rpc Generate(GenerateRequest) returns (GenerateResponse);
-}
-
-message HealthRequest {}
-
-message HealthResponse {
-  Status status = 1;
-  string version = 2;
 }
 
 message GenerateRequest {

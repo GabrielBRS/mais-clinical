@@ -8,12 +8,13 @@ def load_settings() raises -> Settings:
 
     Layer: infrastructure
     Why here: application owns the Settings shape; I/O stays out of it.
+    The HTTP bind is internal (AOR_AGENT_HTTP_*). Public ingress is Rust.
     """
     var settings = Settings.default()
     settings.app_name = _env("AOR_APP_NAME", settings.app_name)
     settings.app_env = _env("AOR_APP_ENV", settings.app_env)
     settings.log_level = _env("AOR_LOG_LEVEL", settings.log_level)
-    settings.http_host = _env("AOR_HTTP_HOST", settings.http_host)
+    settings.http_host = _env("AOR_AGENT_HTTP_HOST", settings.http_host)
     settings.ipc_path = _env("AOR_IPC_PATH", settings.ipc_path)
     settings.compute_ipc_path = _env(
         "AOR_COMPUTE_IPC_PATH", settings.compute_ipc_path
@@ -23,7 +24,7 @@ def load_settings() raises -> Settings:
         _env("AOR_LLM_PROVIDER", settings.llm_provider.name())
     )
     settings.storage_engine = _env("AOR_STORAGE_ENGINE", settings.storage_engine)
-    settings.http_port = _env_port("AOR_HTTP_PORT", settings.http_port)
+    settings.http_port = _env_port("AOR_AGENT_HTTP_PORT", settings.http_port)
     return settings^
 
 

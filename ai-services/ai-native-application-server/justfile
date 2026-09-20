@@ -1,0 +1,42 @@
+set dotenv-load := false
+
+default:
+    @just --list
+
+format:
+    cargo fmt --all
+    pixi run format
+
+lint:
+    cargo fmt --all -- --check
+    cargo clippy --workspace --all-targets -- -D warnings
+
+test:
+    cargo test --workspace
+    pixi run test
+    uv run --frozen python -m pytest
+
+build:
+    cargo build --locked --release -p ai-native-runtime
+    pixi run build
+
+run:
+    cargo run --locked -p ai-native-runtime
+
+run-agent:
+    pixi run run
+
+benchmark:
+    pixi run bench
+
+docker-runtime:
+    docker build -f runtime-rust/Dockerfile -t orzyon/ai-native-runtime:0.1.0 .
+
+docker-agent-runtime:
+    docker build -f Dockerfile -t orzyon/ai-native-agent-runtime:0.1.0 .
+
+compose-up:
+    docker compose up --build
+
+compose-down:
+    docker compose down

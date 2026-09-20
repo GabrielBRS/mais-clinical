@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 set -euo pipefail
-echo deepspeed scripts/training/train_full.py --deepspeed configs/distributed/deepspeed_zero2.yaml
+pixi run ai-model-training train --recipe "${1:-recipes/qwen/sft_full.yaml}" --device cuda

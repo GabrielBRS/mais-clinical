@@ -9,7 +9,7 @@ from llm_adaptation.data.ingestion import load_records
 from llm_adaptation.data.prepare import prepare_records
 from llm_adaptation.data.tokenization import WordTokenizer, truncate
 from llm_adaptation.experiment import Run, Tracker
-from llm_adaptation.model import ModelConfig, load_model
+from llm_adaptation.model import Checkpoint, ModelConfig, load_model
 from llm_adaptation.recipe import Recipe
 from llm_adaptation.training import TrainConfig, train
 from llm_adaptation.training.sft import SFTTrainer
@@ -31,13 +31,19 @@ def _examples(recipe: Recipe) -> list[TokenizedExample]:
     ]
 
 
-def train_recipe(recipe: Recipe) -> dict:
+def train_recipe(recipe: Recipe, *, resume: bool = False) -> dict:
     examples = _examples(recipe)
     if not examples:
         raise RuntimeError("nenhum exemplo para treinar — rode prepare")
     output = recipe.root / "artifacts" / "checkpoints" / recipe.name
     config = TrainConfig.from_recipe(recipe.training, output)
-    model = load_model(ModelConfig.from_dict(recipe.model))
+    checkpoint_file = output / "checkpoint.json"
+    resumed = resume and checkpoint_file.exists()
+    model, _checkpoint = (
+        Checkpoint.read(output)
+        if resumed
+        else (load_model(ModelConfig.from_dict(recipe.model)), None)
+    )
     if recipe.method in {"sft", "full"} or recipe.adapter in {"lora", "qlora", "none"}:
         result = SFTTrainer().run(model, examples, config)
     else:
@@ -56,4 +62,5 @@ def train_recipe(recipe: Recipe) -> dict:
         "loss": result.metrics["loss"],
         "adapter": result.adapter,
         "run": run.id,
+        "resumed": resumed,
     }

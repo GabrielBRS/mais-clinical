@@ -1,7 +1,7 @@
 [project]
 name = "llm-adaptation"
-version = "0.1.0"
-description = "Adaptação de LLMs — SFT, LoRA/QLoRA, CPT, DPO e GRPO"
+version = "0.2.0"
+description = "Mojo host com engine Python para adaptação de LLMs"
 authors = [{ name = "GabrielBRS" }]
 requires-python = ">=3.13"
 dependencies = [

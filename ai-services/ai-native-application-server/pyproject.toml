@@ -36,3 +36,19 @@ module-root = "src"
 asyncio_mode = "auto"
 testpaths = ["tests"]
 pythonpath = ["src"]
+
+[tool.pyright]
+pythonVersion = "3.13"
+extraPaths = ["src"]
+include = ["src/ai_orchestrator", "tests", "examples", "benchmarks"]
+exclude = [
+    ".pixi",
+    ".venv",
+    "target",
+    "build",
+    "src/domain",
+    "src/application",
+    "src/bootstrap",
+    "src/transport",
+    "src/infrastructure",
+]

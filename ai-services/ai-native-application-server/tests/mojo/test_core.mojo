@@ -47,7 +47,8 @@ def test_lifecycle() raises:
 def test_settings_defaults() raises:
     var settings = Settings.default()
     assert_equal(settings.app_name, "ai-orchestrator")
-    assert_equal(settings.http_port, 8080)
+    assert_equal(settings.http_host, "127.0.0.1")
+    assert_equal(settings.http_port, 8090)
     assert_equal(settings.ipc_path, "/tmp/ai-orchestrator.sock")
 
 

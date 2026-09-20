@@ -4,17 +4,11 @@ package ai.orchestrator.v1;
 
 import "common.proto";
 
-// Espelho do data-engine para o client gRPC/IPC.
+// Internal agentic retrieval capability owned by Mojo. Traditional backend
+// data access remains in Rust; public clients never address retrieval directly.
 service Retrieval {
   rpc Health(HealthRequest) returns (HealthResponse);
   rpc Retrieve(RetrieveRequest) returns (RetrieveResponse);
-}
-
-message HealthRequest {}
-
-message HealthResponse {
-  Status status = 1;
-  string version = 2;
 }
 
 message RetrieveRequest {

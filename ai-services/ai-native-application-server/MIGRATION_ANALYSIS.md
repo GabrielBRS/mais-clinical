@@ -1,34 +1,56 @@
-# Registro da migração para Mojo
+# Registro da migração Rust + Mojo
 
-Migração concluída para uma única implementação e um único runtime.
+A afirmação anterior de uma migração Mojo concluída não correspondia à árvore
+rastreada: Python e Mojo ainda implementam várias das mesmas responsabilidades.
+A migração incremental agora segue a fronteira arquitetural correta:
 
-## Resultado
+- Rust é o backend completo e o único ingress público;
+- Mojo é o runtime agentic interno, não apenas um compute engine;
+- um use case Rust pode ou não invocar Mojo;
+- clientes nunca acessam Mojo diretamente.
 
-- domínio, agentes, mensagens, estado e erros: Mojo;
-- execução de agente e workflow: Mojo;
-- grafo, roteamento, RAG, embeddings, similaridade e top-k: Mojo;
-- memória local e tool registry: Mojo;
-- parser/servidor HTTP: Mojo sobre sockets POSIX;
-- framing e servidor IPC ACE1: Mojo sobre sockets Unix POSIX;
-- configuração: Mojo via `std.os.getenv`;
-- testes, exemplos, smoke test e benchmarks: Mojo.
+## Fase 1 — infraestrutura base
 
-O entrypoint único é `src/main.mojo`, compilado como `build/agentd`.
+Entregue nesta fase:
 
-## Decisões de readaptação
+- workspace Cargo e crate `ai-native-runtime`;
+- configuração `AOR_*` validada;
+- logs JSON, tracing HTTP e erros tipados;
+- health, liveness e readiness;
+- shutdown gracioso por SIGINT/SIGTERM;
+- geração Rust de todos os contratos Protobuf;
+- contrato de health compartilhado, sem símbolos Protobuf duplicados;
+- porta Rust interna `AgentRuntime`, injetada somente em casos de uso agentic;
+- CRUD Rust de referência que não chama Mojo;
+- adapter HTTP privado e fluxo testado Rust -> Mojo -> Rust;
+- Dockerfile multi-stage do runtime Rust;
+- Compose com ambos os processos e somente a porta Rust publicada;
+- comandos Cargo, Pixi e Just para validação;
+- configuração de rust-analyzer e Mojo no editor.
 
-O antigo transport gRPC possuía apenas health e dependia de um gerador de
-protobuf. Ele não foi replicado como placeholder. Health permanece disponível
-em `GET /health`, `GET /health/live`, `GET /health/ready` e no tipo ACE1 1/2.
+Rust já controla as rotas públicas de agent e workflow, mas a implementação
+agentic ainda é o baseline Mojo. Agent, workflow e RAG pertencem ao futuro
+runtime agentic Mojo. O entrypoint `src/main.mojo` e o pacote Python continuam
+como baselines transitórios.
 
-Adapters de vendors que apenas lançavam erro ou não executavam trabalho foram
-removidos. Integrações futuras devem entrar como adapters Mojo concretos ou
-como serviços externos acessados pelo protocolo ACE1.
+## Estado do baseline Mojo
 
-## Critérios de aceitação
+Após recriar o ambiente `.pixi` pelo `pixi.lock`, os testes Mojo e o build
+voltaram a funcionar. O transport gRPC Mojo segue como placeholder; HTTP e
+ACE1 continuam sendo transports funcionais apenas do baseline.
 
-1. `pixi run test` valida domínio, grafo, agente, compute, IPC e HTTP.
-2. `pixi run smoke` atravessa HTTP e ACE1 até os mesmos use cases.
-3. `pixi run build` produz o executável `agentd`.
-4. `pixi run test-network` valida bind TCP e Unix fora de sandboxes restritos.
-5. Nenhum arquivo-fonte executável fora de `.mojo` pertence ao projeto.
+Adapters Python de vendors que apenas lançam erro ainda existem e não devem ser
+tratados como integrações funcionais. Serão substituídos antes da remoção do
+baseline.
+
+## Próxima fatia
+
+1. Criar o processo `mojo-agent-runtime` com health/readiness exclusivamente
+   internos e sem porta publicada no host.
+2. Migrar para ele agentes, grafo, nós, orchestration, workflow, RAG, retrieval,
+   tool harness, inferência e kernels.
+3. Implementar o adapter Rust da porta `AgentRuntime`, isolando o transporte.
+4. Criar um caso de uso Rust agentic explícito e validar o fluxo
+   Rust -> Mojo -> Rust, incluindo indisponibilidade, timeout e retry.
+5. Confirmar que um caso de uso tradicional continua funcionando sem chamar
+   Mojo e sem depender da readiness dele.

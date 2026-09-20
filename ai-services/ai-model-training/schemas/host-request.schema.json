@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://orzyon.local/schemas/ai-model-training-host-request-1.0.json",
+  "title": "AI Model Training Host Request 1.0",
+  "type": "object",
+  "required": ["schema_version", "operation", "run_id"],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "operation": {
+      "enum": ["train", "evaluate", "export", "prepare_data", "publish", "health"]
+    },
+    "run_id": {"type": "string", "format": "uuid"},
+    "recipe_path": {"type": ["string", "null"]},
+    "root": {"type": ["string", "null"]},
+    "overrides": {"type": "object", "maxProperties": 0},
+    "input_dir": {"type": ["string", "null"]},
+    "output_dir": {"type": ["string", "null"]},
+    "device": {"enum": ["cpu", "cuda", "mps", "auto"]},
+    "distributed": {"type": "object"},
+    "resume": {"type": "boolean"},
+    "dry_run": {"type": "boolean"}
+  },
+  "additionalProperties": false
+}

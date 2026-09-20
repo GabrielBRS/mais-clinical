@@ -1,9 +1,17 @@
 # Processos
 
 ```text
-agentd
-  ├─ HTTP 0.0.0.0:8080
-  ├─ ACE1 /tmp/ai-orchestrator.sock
-  ├─ compute-engine /tmp/ai-compute-engine.sock
-  └─ data-engine /tmp/ai-data-engine.sock
+Internet / clientes
+  |
+  v
+ai-native-runtime (Rust, público :8080)
+  ├─ use cases tradicionais -> bancos / filas / serviços
+  └─ use cases agentic
+       |
+       v rede privada
+     mojo-agent-runtime (:8090 interno, nunca publicado)
+       └─ agents / graph / nodes / tools / RAG / inference / kernels
 ```
+
+Todo projeto distribui os dois processos. A ausência de uma chamada agentic em
+determinado fluxo não altera a rota tradicional nem cria um hop desnecessário.

@@ -1,0 +1,16 @@
+.git
+.pixi
+.venv
+.pytest_cache
+__pycache__
+*.pyc
+build
+dist
+artifacts/*
+!artifacts/registry.json
+data/raw
+data/external
+data/interim
+data/processed
+data/tokenized
+notebooks

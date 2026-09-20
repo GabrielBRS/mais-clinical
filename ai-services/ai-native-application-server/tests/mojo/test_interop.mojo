@@ -10,7 +10,8 @@ from std.testing import assert_equal, assert_true, TestSuite
 def test_load_settings_uses_defaults_without_env() raises:
     var settings = load_settings()
     assert_equal(settings.app_name, "ai-orchestrator")
-    assert_equal(settings.http_port, 8080)
+    assert_equal(settings.http_host, "127.0.0.1")
+    assert_equal(settings.http_port, 8090)
 
 
 def test_tokenizer_splits_whitespace() raises:

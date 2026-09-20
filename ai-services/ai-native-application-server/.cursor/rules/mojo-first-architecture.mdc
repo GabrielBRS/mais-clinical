@@ -1,33 +1,46 @@
 ---
-description: The process is 100% Mojo; no CPython in the binary
+description: Rust owns public requests; Mojo is the internal agent runtime
 alwaysApply: true
 ---
 
-# Mojo-only architecture
+# AI Native Application Server
 
 ```text
-MOJO = linguagem do processo
+Cliente -> Rust (API + backend tradicional)
+              └─ use case agentic? -> Mojo (agentes, RAG, harness)
 ```
 
-Do not add Python to `agentd`. Do not introduce `src/interop/python` or `src/python`.
+Rust is the only public process. Clients must never call Mojo directly.
 
-## Layers
+## Process split
+
+| Process | Path | Owns | Must not do |
+| --- | --- | --- | --- |
+| Rust runtime | `runtime-rust/` | public HTTP, CRUD, DBs, auth, request control | agent graph, RAG, harness |
+| Mojo agent engine | `src/` | agents, orchestration, RAG, retrieval, harness | public ingress, traditional CRUD |
+
+Not every request uses Mojo. The agent engine stays in the repo even when dormant. A Rust use case invokes it only when the flow needs an agent.
+
+Do not add Python to the Mojo process. Do not introduce `src/interop/python` or `src/python`.
+
+## Mojo layers
 
 | Layer | Path | Owns | Must not do |
 | --- | --- | --- | --- |
 | Domain | `src/domain/` | types, rules, ports/traits | I/O, vendors |
-| Application | `src/application/` | use cases, graph, agents, RAG flow | HTTP/JSON/gRPC |
+| Application | `src/application/` | agent use cases, graph, RAG | public HTTP/JSON |
 | Bootstrap | `src/bootstrap/` | composition root | business rules |
-| Transport | `src/transport/` | HTTP/gRPC adapters, router, endpoints, handlers | domain rules |
-| Infrastructure | `src/infrastructure/` | sockets, env, local adapters, IPC, compute | domain rules |
+| Transport | `src/transport/` | internal HTTP + ACE1 | domain rules |
+| Infrastructure | `src/infrastructure/` | sockets, env, local adapters | domain rules |
 
 `src/ai_orchestrator/` is leftover FastAPI (Strangler). Do not extend it.
 
-vLLM / LiteLLM stay as external HTTP services. Training/HF serving stay out of this process.
+vLLM / LiteLLM stay as external HTTP services. Training/HF serving stay out of both processes.
 
 ## Placement rule
 
-When adding a feature, state the layer and why. Implement it in Mojo.
+- Traditional backend feature → Rust, state the layer.
+- Agent / RAG / harness feature → Mojo, state the layer.
 
 ```mojo
 var tokenizer = Tokenizer()

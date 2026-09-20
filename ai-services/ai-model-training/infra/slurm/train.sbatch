@@ -1,3 +1,3 @@
 #!/bin/bash
 #SBATCH --job-name=llm-adaptation
-uv run llm-adaptation train --recipe recipes/qwen/sft_lora.yaml
+pixi run ai-model-training train --recipe recipes/qwen/sft_lora.yaml --device cuda

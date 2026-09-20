@@ -1,5 +1,6 @@
 .env
 .venv/
+.pixi/
 __pycache__/
 .pytest_cache/
 .mypy_cache/
@@ -8,6 +9,7 @@ __pycache__/
 *.egg-info/
 dist/
 build/
+.mojo_cache/
 .DS_Store
 artifacts/checkpoints/**
 artifacts/adapters/**

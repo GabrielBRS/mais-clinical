@@ -4,27 +4,39 @@ package ai.orchestrator.v1;
 
 import "common.proto";
 
-service AgentService {
+// Internal contract. Only the Rust Application Server may invoke this service;
+// clients must never connect to the Mojo agent runtime directly.
+service AgentRuntimeService {
   rpc Health(HealthRequest) returns (HealthResponse);
-  rpc Execute(ExecuteAgentRequest) returns (ExecuteAgentResponse);
-}
-
-message HealthRequest {}
-
-message HealthResponse {
-  Status status = 1;
-  string version = 2;
-  bool ready = 3;
+  rpc ExecuteAgent(ExecuteAgentRequest) returns (ExecuteAgentResponse);
+  rpc ExecuteWorkflow(ExecuteWorkflowRequest) returns (ExecuteWorkflowResponse);
 }
 
 message ExecuteAgentRequest {
   string agent_id = 1;
   string prompt = 2;
   bool retrieve = 3;
+  string request_id = 4;
+  repeated string context = 5;
 }
 
 message ExecuteAgentResponse {
   Status status = 1;
   string execution_id = 2;
   string text = 3;
+  repeated string context = 4;
+  repeated string steps = 5;
+}
+
+message ExecuteWorkflowRequest {
+  string workflow_id = 1;
+  string input_json = 2;
+  string request_id = 3;
+}
+
+message ExecuteWorkflowResponse {
+  Status status = 1;
+  string execution_id = 2;
+  string output_json = 3;
+  repeated string steps = 4;
 }

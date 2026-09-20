@@ -1,0 +1,11 @@
+.git
+.env
+.pixi
+.pytest_cache
+.venv
+**/__pycache__
+*.pyc
+build
+dist
+target
+
