@@ -1,0 +1,12 @@
+{
+    "mojo.sdk.path": "${workspaceFolder}/.pixi/envs/default",
+
+    "[mojo]": {
+        "editor.defaultFormatter": "modular-mojotools.vscode-mojo",
+        "editor.formatOnSave": true
+    },
+
+    "mojo.lsp.includeDirs": [
+        "${workspaceFolder}/src"
+    ]
+}

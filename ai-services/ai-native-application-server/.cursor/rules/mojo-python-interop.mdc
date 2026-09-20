@@ -1,0 +1,21 @@
+---
+description: This process does not use Python interop
+globs: src/interop/**/*.mojo,src/python/**/*.py
+alwaysApply: false
+---
+
+# No Python interop
+
+`agentd` is 100% Mojo. Do not add `Python.import_module`, `PythonObject`,
+`src/interop/python`, or `src/python`.
+
+| Need | Native place |
+| --- | --- |
+| env | `std.os.getenv` in `infrastructure/settings.mojo` |
+| TCP | libc FFI in `infrastructure/net/tcp.mojo` |
+| agent graph | `application/graph/runtime.mojo` |
+| tokenizer | `infrastructure/local/tokenizer.mojo` |
+| embeddings | `infrastructure/local/embeddings.mojo` + `hash_embed` |
+| generate | `infrastructure/local/llm.mojo` |
+
+External model serving is another process over HTTP/gRPC, not CPython in-process.

@@ -1,0 +1,35 @@
+---
+description: The process is 100% Mojo; no CPython in the binary
+alwaysApply: true
+---
+
+# Mojo-only architecture
+
+```text
+MOJO = linguagem do processo
+```
+
+Do not add Python to `agentd`. Do not introduce `src/interop/python` or `src/python`.
+
+## Layers
+
+| Layer | Path | Owns | Must not do |
+| --- | --- | --- | --- |
+| Domain | `src/domain/` | types, rules, ports/traits | I/O, vendors |
+| Application | `src/application/` | use cases, graph, agents, RAG flow | HTTP/JSON/gRPC |
+| Bootstrap | `src/bootstrap/` | composition root | business rules |
+| Transport | `src/transport/` | HTTP/gRPC adapters, router, endpoints, handlers | domain rules |
+| Infrastructure | `src/infrastructure/` | sockets, env, local adapters, IPC, compute | domain rules |
+
+`src/ai_orchestrator/` is leftover FastAPI (Strangler). Do not extend it.
+
+vLLM / LiteLLM stay as external HTTP services. Training/HF serving stay out of this process.
+
+## Placement rule
+
+When adding a feature, state the layer and why. Implement it in Mojo.
+
+```mojo
+var tokenizer = Tokenizer()
+var tokens = tokenizer.encode("Hello Mojo")
+```

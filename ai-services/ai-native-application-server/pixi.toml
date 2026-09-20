@@ -1,0 +1,24 @@
+[workspace]
+name = "ai-orchestrator"
+version = "0.1.0"
+description = "Mojo-first agent orchestrator"
+authors = ["GabrielBRS"]
+channels = ["https://conda.modular.com/max/", "conda-forge"]
+platforms = ["linux-64"]
+
+[dependencies]
+mojo = ">=1.0.0,<2"
+
+[tasks]
+test = "mojo run -I src tests/mojo/test_core.mojo && mojo run -I src tests/mojo/test_graph.mojo && mojo run -I src tests/mojo/test_agent.mojo && mojo run -I src tests/mojo/test_compute.mojo && mojo run -I src tests/mojo/test_ipc.mojo && mojo run -I src tests/mojo/test_interop.mojo && mojo run -I src tests/mojo/test_http.mojo"
+test-network = "mojo run -I src tests/mojo/test_network.mojo"
+smoke = "mojo run -I src scripts/smoke_test.mojo"
+run = "mojo run -I src src/main.mojo"
+build = { cmd = "mkdir -p build && mojo build -I src src/main.mojo -o build/agentd" }
+example-agent = "mojo run -I src examples/simple_agent.mojo"
+example-workflow = "mojo run -I src examples/workflow.mojo"
+example-http = "mojo run -I src examples/http_request.mojo"
+example-ipc = "mojo run -I src examples/ipc_client.mojo"
+bench = "mojo run -I src benchmarks/orchestration.mojo && mojo run -I src benchmarks/retrieval.mojo && mojo run -I src benchmarks/routing.mojo && mojo run -I src benchmarks/serialization.mojo"
+format = "find src tests/mojo examples benchmarks scripts -name '*.mojo' -print0 | xargs -0 mojo format"
+version = "mojo --version"
