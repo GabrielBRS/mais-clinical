@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Gera stubs em src/ai_orchestrator/generated/proto/."""
+"""Gera stubs em ai-agent-contract/src/ai_orchestrator/generated/proto/."""
 
 from __future__ import annotations
 
@@ -9,7 +9,14 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 PROTO = ROOT / "proto"
-OUT = ROOT / "src" / "ai_orchestrator" / "generated" / "proto"
+OUT = (
+    ROOT
+    / "ai-agent-contract"
+    / "src"
+    / "ai_orchestrator"
+    / "generated"
+    / "proto"
+)
 
 
 def main() -> None:

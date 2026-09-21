@@ -1,16 +1,19 @@
 ---
-description: Mojo 1.0+ language, typing, and source of truth
-alwaysApply: true
+description: Mojo 1.0+ conventions for the internal Python host
+globs: ai-agent-runtime/src/**/*.mojo,ai-agent-runtime/tests/**/*.mojo
+alwaysApply: false
 ---
 
 # Mojo language
 
-- Primary language is **Mojo 1.0+**. New project-owned source uses `.mojo`.
+- The host language is **Mojo 1.0+**. Product backend code remains Rust and
+  agentic application code remains Python.
 - Use `def`. Never generate legacy `fn`.
 - Prefer idiomatic Mojo over literal C++/CUDA/Python/Rust translation.
 - Prefer explicit types on public APIs and hot paths.
 - Prefer `struct`, traits, parameterization, `comptime`, ownership, `SIMD`, `Span`.
-- Do not introduce Python-style dynamic behavior when a static abstraction fits.
+- Keep dynamic Python access inside `ai-agent-runtime/src/host/interop` and the
+  generated `ai-agent-runtime/src/contracts` loaders.
 
 ```mojo
 def add(a: Int, b: Int) -> Int:

@@ -11,14 +11,21 @@
 - `bootstrap/`: configuração, lifecycle e composition root;
 - `observability/`: logs, métricas, tracing e correlation ID.
 
-## Mojo Agent Runtime
+## Python AI Agent Contract
 
-- agentes, supervisor e registry;
-- graph, nodes, routing, workflows e state agentic;
-- tools e execution harness;
-- RAG, retrieval, embeddings e reranking agentic;
-- tokenização, inferência e kernels;
-- transport interno e health próprio.
+- `ai-agent-contract/src/ai_orchestrator/domain/`: agentes, mensagens, execução e workflows;
+- `ai-agent-contract/src/ai_orchestrator/usecase/`: casos de uso agentic;
+- `ai-agent-contract/src/ai_orchestrator/orchestration/`: executores, routing e estado;
+- `ai-agent-contract/src/ai_orchestrator/adapter/`: LLM, vector, memory, storage, RPC e IPC;
+- `ai-agent-contract/src/ai_orchestrator/bootstrap/`: `AppContainer` e composition root.
 
-Mojo não contém API pública, autenticação de cliente, CRUD tradicional ou
-ownership da resposta HTTP externa.
+## Mojo AI Agent Runtime
+
+- `ai-agent-runtime/src/contracts/`: loaders 1:1 e registro dos módulos Python;
+- `ai-agent-runtime/src/host/interop/`: CPython embutido e `Python.import_module()`;
+- `ai-agent-runtime/src/host/transport/`: HTTP/IPC estritamente privados;
+- `ai-agent-runtime/src/host/config.mojo`: configuração do processo interno;
+- `ai-agent-runtime/src/main.mojo`: entrypoint `agentd`.
+
+Mojo não contém agentes, grafo, RAG, API pública, CRUD tradicional ou ownership
+da resposta HTTP externa.

@@ -1,7 +1,7 @@
 [project]
 name = "ai-orchestrator-python"
 version = "0.1.0"
-description = "Orquestração de agentes — hexagonal, REST + gRPC + IPC ACE1"
+description = "Python AI agent contract loaded and executed by the Mojo runtime"
 authors = [{ name = "GabrielBRS" }]
 requires-python = ">=3.13"
 dependencies = [
@@ -12,9 +12,6 @@ dependencies = [
     "grpcio-health-checking>=1.70",
     "protobuf>=5.29",
 ]
-
-[project.scripts]
-ai-orchestrator-python = "ai_orchestrator:main"
 
 [dependency-groups]
 dev = [
@@ -30,25 +27,21 @@ build-backend = "uv_build"
 
 [tool.uv.build-backend]
 module-name = "ai_orchestrator"
-module-root = "src"
+module-root = "ai-agent-contract/src"
 
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
 testpaths = ["tests"]
-pythonpath = ["src"]
+pythonpath = ["ai-agent-contract/src"]
 
 [tool.pyright]
 pythonVersion = "3.13"
-extraPaths = ["src"]
-include = ["src/ai_orchestrator", "tests", "examples", "benchmarks"]
+extraPaths = ["ai-agent-contract/src"]
+include = ["ai-agent-contract/src/ai_orchestrator", "tests"]
 exclude = [
     ".pixi",
     ".venv",
     "target",
     "build",
-    "src/domain",
-    "src/application",
-    "src/bootstrap",
-    "src/transport",
-    "src/infrastructure",
+    "ai-agent-runtime",
 ]

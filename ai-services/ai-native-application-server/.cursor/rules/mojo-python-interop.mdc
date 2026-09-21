@@ -1,21 +1,24 @@
 ---
-description: This process does not use Python interop
-globs: src/interop/**/*.mojo,src/python/**/*.py
-alwaysApply: false
+description: Mojo embeds and executes the Python ai_orchestrator package
+globs: ai-agent-runtime/**/*.mojo,ai-agent-contract/src/ai_orchestrator/**/*.py
+alwaysApply: true
 ---
 
-# No Python interop
+# Mojo / Python interop
 
-`agentd` is 100% Mojo. Do not add `Python.import_module`, `PythonObject`,
-`src/interop/python`, or `src/python`.
+`agentd` is the Mojo agent runtime with embedded CPython. It eagerly loads and
+caches the real Python contract, then executes its composition root in-process.
 
-| Need | Native place |
+| Need | Owner |
 | --- | --- |
-| env | `std.os.getenv` in `infrastructure/settings.mojo` |
-| TCP | libc FFI in `infrastructure/net/tcp.mojo` |
-| agent graph | `application/graph/runtime.mojo` |
-| tokenizer | `infrastructure/local/tokenizer.mojo` |
-| embeddings | `infrastructure/local/embeddings.mojo` + `hash_embed` |
-| generate | `infrastructure/local/llm.mojo` |
+| CPython lifecycle/import | `ai-agent-runtime/src/host/interop/python_runtime.mojo` |
+| mirrored loaders and object registry | `ai-agent-runtime/src/contracts/` |
+| private HTTP/IPC and health | `ai-agent-runtime/src/host/transport/` |
+| composition root | `ai-agent-contract/src/ai_orchestrator/bootstrap/` |
+| agents, graph, RAG, tools | `ai-agent-contract/src/ai_orchestrator/` |
 
-External model serving is another process over HTTP/gRPC, not CPython in-process.
+Use `Python.import_module()` and configure `MOJO_PYTHON` plus
+`MOJO_PYTHON_LIBRARY`. Do not use subprocesses, `exec`, `eval`, or a second
+Mojo implementation of Python agent behavior. Run
+`scripts/generate_agent_contract_loaders.py` after adding, moving or deleting a
+Python contract module.

@@ -1,14 +1,13 @@
-[workspace]
-members = ["runtime-rust"]
-resolver = "2"
-
-[workspace.package]
+[package]
+name = "ai-native-runtime"
 version = "0.1.0"
 edition = "2024"
 rust-version = "1.88"
 license = "MIT"
+description = "Public Rust application server for AI Native Application Server"
+build = "build.rs"
 
-[workspace.dependencies]
+[dependencies]
 axum = "0.8"
 prost = "0.14"
 reqwest = { version = "0.12", default-features = false, features = ["json", "rustls-tls"] }
@@ -21,6 +20,12 @@ tonic-prost = "0.14"
 tower-http = { version = "0.6", features = ["trace"] }
 tracing = "0.1"
 tracing-subscriber = { version = "0.3", features = ["env-filter", "fmt", "json"] }
+
+[build-dependencies]
+tonic-prost-build = "0.14"
+
+[dev-dependencies]
+tower = { version = "0.5", features = ["util"] }
 
 [profile.release]
 lto = "thin"

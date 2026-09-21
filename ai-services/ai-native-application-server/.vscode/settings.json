@@ -26,7 +26,7 @@
         ".pixi",
         ".venv",
         "build",
-        "src/ai_orchestrator"
+        "ai-agent-contract/src/ai_orchestrator"
     ],
     "rust-analyzer.server.extraEnv": {
         "PATH": "${env:HOME}/.cargo/bin:${env:PATH}"
@@ -41,8 +41,7 @@
 
     "mojo.preferWorkspaceEnv": true,
     "mojo.lsp.includeDirs": [
-        "src",
-        "/home/gabrielsousa/workspace/orzyon_omai(health)/ai-services/ai-native-application-server/src"
+        "ai-agent-runtime/src"
     ],
     "[mojo]": {
         "editor.defaultFormatter": "modular-mojotools.vscode-mojo",
@@ -51,10 +50,10 @@
 
     "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
     "python.analysis.extraPaths": [
-        "src"
+        "ai-agent-contract/src"
     ],
     "python.autoComplete.extraPaths": [
-        "src"
+        "ai-agent-contract/src"
     ],
     "python.analysis.autoSearchPaths": true,
     "python.analysis.diagnosticMode": "workspace",
@@ -64,7 +63,7 @@
         "tests"
     ],
     "cursorpyright.analysis.extraPaths": [
-        "src"
+        "ai-agent-contract/src"
     ],
     "cursorpyright.analysis.autoSearchPaths": true,
     "cursorpyright.analysis.diagnosticMode": "workspace",
@@ -73,10 +72,6 @@
         "**/.venv/**",
         "**/target/**",
         "**/build/**",
-        "src/domain/**",
-        "src/application/**",
-        "src/bootstrap/**",
-        "src/transport/**",
-        "src/infrastructure/**"
+        "ai-agent-runtime/**"
     ]
 }

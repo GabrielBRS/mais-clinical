@@ -1,6 +1,0 @@
-trait TelemetryProvider:
-    def span(self, name: String):
-        ...
-
-    def increment(self, name: String):
-        ...

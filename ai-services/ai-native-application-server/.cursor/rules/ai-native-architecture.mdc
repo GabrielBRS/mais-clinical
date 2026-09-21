@@ -1,0 +1,54 @@
+---
+description: Rust application server, Mojo agent runtime, Python agent contract
+alwaysApply: true
+---
+
+# AI Native Application Server
+
+```text
+Cliente -> Rust (API + backend tradicional)
+              └─ use case agentic? -> Mojo runtime -> Python agent contract
+```
+
+Rust is the only public process. Clients must never call Mojo directly.
+
+## Process split
+
+| Process | Path | Owns | Must not do |
+| --- | --- | --- | --- |
+| Rust application server | `src/**/*.rs` | public HTTP, CRUD, DBs, auth, request control | agent graph, RAG, harness |
+| Mojo agent runtime | `ai-agent-runtime/**/*.mojo` | embedded CPython lifecycle, module/object cache, private HTTP/IPC, execution | reimplementing contract behavior |
+| Python agent contract | `ai-agent-contract/src/ai_orchestrator/` | agent, graph, use-case and adapter definitions | public ingress, traditional CRUD |
+
+Not every request uses the agentic stack. A Rust use case invokes the private
+Mojo runtime only when the flow needs an agent. Mojo eagerly loads and caches
+the Python contract, then executes its composition root in-process.
+
+Mojo must use `Python.import_module()` and the CPython embedding variables
+`MOJO_PYTHON` and `MOJO_PYTHON_LIBRARY`. Never spawn Python as a subprocess.
+
+## Ownership
+
+| Layer | Path | Owns | Must not do |
+| --- | --- | --- | --- |
+| Rust application | `src/application/`, `src/ports/` | public business use cases and internal agent port | Python orchestration |
+| Rust adapters | `src/infrastructure/`, `src/transport/` | data adapters, private Mojo client, public API | agent implementation |
+| Mojo runtime | `ai-agent-runtime/src/` | CPython interop, mirrored loaders, object registry and private transport | duplicated contract logic |
+| Python contract | `ai-agent-contract/src/ai_orchestrator/` | domain, use cases, orchestration, adapters, composition root | public client API |
+
+Do not create a second Mojo `Agent`, graph, RAG, or use-case implementation.
+Every Python module must have a homologous generated loader under
+`ai-agent-runtime/src/contracts/`; extend the Python contract and regenerate
+the loaders.
+
+vLLM / LiteLLM stay as external HTTP services. Training/HF serving stay out of both processes.
+
+## Placement rule
+
+- Traditional backend feature → Rust, state the layer.
+- Agent / RAG / harness definition → Python `ai-agent-contract`, state the layer.
+- Runtime, cache, CPython lifecycle, or private transport → Mojo `ai-agent-runtime`.
+
+```mojo
+var api = Python.import_module("ai_orchestrator.host_api")
+```

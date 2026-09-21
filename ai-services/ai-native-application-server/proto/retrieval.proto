@@ -4,8 +4,8 @@ package ai.orchestrator.v1;
 
 import "common.proto";
 
-// Internal agentic retrieval capability owned by Mojo. Traditional backend
-// data access remains in Rust; public clients never address retrieval directly.
+// Internal retrieval implemented by ai_orchestrator and hosted by Mojo.
+// Traditional data access remains in Rust; clients never address this directly.
 service Retrieval {
   rpc Health(HealthRequest) returns (HealthResponse);
   rpc Retrieve(RetrieveRequest) returns (RetrieveResponse);

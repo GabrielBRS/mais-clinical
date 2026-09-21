@@ -1,0 +1,28 @@
+[workspace]
+name = "ai-agent-runtime"
+version = "0.1.0"
+description = "Internal Mojo runtime for the Python AI agent contract"
+authors = ["GabrielBRS"]
+channels = ["https://conda.modular.com/max/", "conda-forge"]
+platforms = ["linux-64"]
+
+[dependencies]
+python = ">=3.13,<3.14"
+mojo = ">=1.0.0,<2"
+just = ">=1.40,<2"
+
+[pypi-dependencies]
+ai-orchestrator-python = { path = "..", editable = true }
+
+[activation.env]
+MOJO_PYTHON = "$CONDA_PREFIX/bin/python"
+MOJO_PYTHON_LIBRARY = "$CONDA_PREFIX/lib/libpython3.13.so"
+AOR_CONTRACT_ROOT = "../ai-agent-contract"
+
+[tasks]
+generate-contract-loaders = "python ../scripts/generate_agent_contract_loaders.py"
+test = "mojo run -I src tests/mojo/test_host.mojo"
+run = "mojo run -I src src/main.mojo"
+build = { cmd = "mkdir -p ../build && mojo build -I src src/main.mojo -o ../build/agentd -Xlinker --no-as-needed -Xlinker -L$CONDA_PREFIX/lib -Xlinker -lpython3.13 -Xlinker --as-needed -Xlinker -rpath -Xlinker $CONDA_PREFIX/lib" }
+format = "find src tests/mojo -name '*.mojo' -print0 | xargs -0 mojo format"
+version = "mojo --version"

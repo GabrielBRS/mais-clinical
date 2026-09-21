@@ -1,3 +1,0 @@
-trait EmbeddingProvider:
-    def embed(self, texts: List[String]) raises -> List[List[Float64]]:
-        ...

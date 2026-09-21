@@ -7,7 +7,8 @@ Somente o processo Rust serve HTTP público. Na fase atual estão disponíveis:
   tradicional que nunca chama Mojo;
 - `POST /agents/execute`, como caso de uso Rust que valida e invoca a porta
   interna `AgentRuntime`;
-- `POST /workflows/execute`, com a mesma fronteira Rust -> Mojo -> Rust.
+- `POST /workflows/execute`, com a mesma fronteira
+  Rust -> Mojo -> Python -> Mojo -> Rust.
 
 ```bash
 curl -s http://127.0.0.1:8080/health/ready
@@ -20,6 +21,6 @@ curl -s -X POST http://127.0.0.1:8080/agents/execute \
 ```
 
 As duas últimas rotas são públicas somente no Rust. O adapter Rust chama as
-rotas homônimas do baseline Mojo pela rede interna enquanto o contrato agentic
-definitivo é migrado. Não existe proxy público genérico nem acesso do cliente ao
-endereço `AOR_MOJO_RUNTIME_URL`.
+rotas homônimas do runtime Mojo pela rede interna. O runtime usa os objetos já
+carregados do contrato Python `ai_orchestrator`. Não existe proxy público
+genérico nem acesso do cliente ao endereço `AOR_AGENT_RUNTIME_URL`.

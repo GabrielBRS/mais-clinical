@@ -5,7 +5,7 @@ package ai.orchestrator.v1;
 import "common.proto";
 
 // Internal contract. Only the Rust Application Server may invoke this service;
-// clients must never connect to the Mojo agent runtime directly.
+// clients must never connect to the Mojo/Python runtime directly.
 service AgentRuntimeService {
   rpc Health(HealthRequest) returns (HealthResponse);
   rpc ExecuteAgent(ExecuteAgentRequest) returns (ExecuteAgentResponse);

@@ -1,6 +1,0 @@
-trait VectorStore:
-    def index(mut self, texts: List[String]) raises -> Int:
-        ...
-
-    def search(self, query: String, top_k: Int) raises -> List[String]:
-        ...
