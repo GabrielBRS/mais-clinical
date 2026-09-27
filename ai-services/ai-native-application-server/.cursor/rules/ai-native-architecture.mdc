@@ -46,10 +46,13 @@ vLLM / LiteLLM stay as external HTTP services. Training/HF serving stay out of b
 ## Repository layout
 
 The directory with the same name as the repository root is the principal Rust
-project. `Cargo.toml` lives there. `ai-agent-runtime` and `ai-agent-contract`
-stay beside it. The repository root keeps the shared `.env`, Docker Compose,
-docs and `deploy.py`. On Linux, `deploy.py` builds each project in its own
-folder and moves the release artifact into `builds/`.
+project. `Cargo.toml` lives there. `ai-agent-runtime` stays beside it.
+`pyproject.toml` and `uv.lock` live in `ai-agent-contract`. The repository root
+keeps the shared `.env`, Docker Compose, docs, `build.py` and `deploy.py`.
+`build.py` detects Windows, macOS or Linux and runs that system's terminal
+commands, then moves release artifacts into `builds/`. `deploy.py` reserves
+the Jenkins and GitLab publication step with the same per-system terminal
+layout.
 
 ## Placement rule
 

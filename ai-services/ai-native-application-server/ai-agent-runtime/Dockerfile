@@ -11,7 +11,6 @@ RUN apt-get update \
 
 WORKDIR /app/ai-agent-runtime
 COPY ai-agent-runtime/pixi.toml ai-agent-runtime/pixi.lock ./
-COPY pyproject.toml README.md /app/
 COPY ai-agent-contract /app/ai-agent-contract
 COPY ai-agent-runtime/src ./src
 RUN pixi install --locked \

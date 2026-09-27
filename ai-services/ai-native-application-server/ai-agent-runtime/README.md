@@ -18,5 +18,5 @@ pixi run test
 pixi run build
 ```
 
-A build grava `build/agentd` dentro deste diretório. `deploy.py`, na raiz do
+A build grava `build/agentd` dentro deste diretório. `build.py`, na raiz do
 repositório, move esse binário para `builds/ai-agent-runtime/agentd`.

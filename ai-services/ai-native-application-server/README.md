@@ -29,9 +29,12 @@ contratos east-west internos e devem existir somente na rede privada do produto.
 ├── ai-agent-runtime/               # Mojo: agentd, HTTP interno e loaders
 │   └── src/contracts/              # espelho 1:1 dos módulos Python
 ├── ai-agent-contract/              # Python: definições agentic
+│   ├── pyproject.toml
+│   ├── uv.lock
 │   └── src/ai_orchestrator/
-├── builds/                         # artefatos movidos por deploy.py
-├── deploy.py                       # build Linux e stage em builds/
+├── builds/                         # artefatos movidos por build.py
+├── build.py                        # compila no terminal do Windows, macOS ou Linux
+├── deploy.py                       # publica builds/ (Jenkins/GitLab ainda sem instância)
 ├── docker-compose.yml
 ├── docs/
 └── .env.example                    # ambiente compartilhado
@@ -98,7 +101,7 @@ não transforma automaticamente bytecode Python em código nativo Mojo. Kernels
 que precisarem de aceleração devem ter implementação Mojo nativa explícita.
 
 ```bash
-uv run --frozen python -m pytest
+uv run --project ai-agent-contract --directory ai-agent-contract --frozen python -m pytest
 ```
 
 ## Interface do monorepo
@@ -114,12 +117,14 @@ just run
 just compose-up
 ```
 
-No Linux, `deploy.py` compila o projeto principal (`cargo build --release`) e o
-runtime Mojo (`pixi run build`) dentro de cada pasta e move os binários para
-`builds/`:
+Na raiz, `build.py` identifica o sistema da máquina e compila pelo terminal
+desse sistema. O binário Rust e o `agentd` vão para `builds/`. `deploy.py`
+confere essa pasta e reserva o envio ao Jenkins e ao GitLab; as instâncias
+ainda não estão configuradas.
 
 ```bash
-python3 deploy.py
+python build.py
+python deploy.py
 ```
 
 ```text

@@ -12,7 +12,7 @@ mojo = ">=1.0.0,<2"
 just = ">=1.40,<2"
 
 [pypi-dependencies]
-ai-orchestrator-python = { path = "..", editable = true }
+ai-orchestrator-python = { path = "../ai-agent-contract", editable = true }
 
 [activation.env]
 MOJO_PYTHON = "$CONDA_PREFIX/bin/python"
