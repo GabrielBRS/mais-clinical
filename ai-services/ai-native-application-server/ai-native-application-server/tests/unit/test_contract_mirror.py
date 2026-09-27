@@ -3,7 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = Path(__file__).resolve().parents[3]
 PYTHON_ROOT = ROOT / "ai-agent-contract" / "src"
 PYTHON_PACKAGE = PYTHON_ROOT / "ai_orchestrator"
 MOJO_ROOT = ROOT / "ai-agent-runtime" / "src" / "contracts"

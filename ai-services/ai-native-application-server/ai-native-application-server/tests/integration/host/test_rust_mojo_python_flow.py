@@ -14,9 +14,9 @@ from urllib.request import Request, urlopen
 import pytest
 
 
-PROJECT = Path(__file__).resolve().parents[3]
-MOJO_BINARY = PROJECT / "build/agentd"
-RUST_BINARY = PROJECT / "target/debug/ai-native-runtime"
+PROJECT = Path(__file__).resolve().parents[4]
+MOJO_BINARY = PROJECT / "ai-agent-runtime" / "build" / "agentd"
+RUST_BINARY = PROJECT / "ai-native-application-server" / "target" / "debug" / "ai-native-runtime"
 
 
 def free_port() -> int:

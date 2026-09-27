@@ -7,17 +7,19 @@
         "**/.pixi/**": true,
         "**/.venv/**": true,
         "**/target/**": true,
-        "**/build/**": true
+        "**/build/**": true,
+        "**/builds/**": true
     },
     "search.exclude": {
         "**/.pixi/**": true,
         "**/.venv/**": true,
         "**/target/**": true,
-        "**/build/**": true
+        "**/build/**": true,
+        "**/builds/**": true
     },
 
     "rust-analyzer.linkedProjects": [
-        "Cargo.toml"
+        "ai-native-application-server/Cargo.toml"
     ],
     "rust-analyzer.cargo.buildScripts.enable": true,
     "rust-analyzer.procMacro.enable": true,
@@ -26,6 +28,7 @@
         ".pixi",
         ".venv",
         "build",
+        "builds",
         "ai-agent-contract/src/ai_orchestrator"
     ],
     "rust-analyzer.server.extraEnv": {
@@ -60,7 +63,7 @@
     "python.analysis.indexing": true,
     "python.testing.pytestEnabled": true,
     "python.testing.pytestArgs": [
-        "tests"
+        "ai-native-application-server/tests"
     ],
     "cursorpyright.analysis.extraPaths": [
         "ai-agent-contract/src"
@@ -72,6 +75,7 @@
         "**/.venv/**",
         "**/target/**",
         "**/build/**",
+        "**/builds/**",
         "ai-agent-runtime/**"
     ]
 }

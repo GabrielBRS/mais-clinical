@@ -31,17 +31,18 @@ module-root = "ai-agent-contract/src"
 
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
-testpaths = ["tests"]
+testpaths = ["ai-native-application-server/tests"]
 pythonpath = ["ai-agent-contract/src"]
 
 [tool.pyright]
 pythonVersion = "3.13"
 extraPaths = ["ai-agent-contract/src"]
-include = ["ai-agent-contract/src/ai_orchestrator", "tests"]
+include = ["ai-agent-contract/src/ai_orchestrator", "ai-native-application-server/tests"]
 exclude = [
     ".pixi",
     ".venv",
     "target",
     "build",
+    "builds",
     "ai-agent-runtime",
 ]

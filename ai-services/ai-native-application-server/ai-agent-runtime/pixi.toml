@@ -23,6 +23,6 @@ AOR_CONTRACT_ROOT = "../ai-agent-contract"
 generate-contract-loaders = "python ../scripts/generate_agent_contract_loaders.py"
 test = "mojo run -I src tests/mojo/test_host.mojo"
 run = "mojo run -I src src/main.mojo"
-build = { cmd = "mkdir -p ../build && mojo build -I src src/main.mojo -o ../build/agentd -Xlinker --no-as-needed -Xlinker -L$CONDA_PREFIX/lib -Xlinker -lpython3.13 -Xlinker --as-needed -Xlinker -rpath -Xlinker $CONDA_PREFIX/lib" }
+build = { cmd = "mkdir -p build && mojo build -I src src/main.mojo -o build/agentd -Xlinker --no-as-needed -Xlinker -L$CONDA_PREFIX/lib -Xlinker -lpython3.13 -Xlinker --as-needed -Xlinker -rpath -Xlinker $CONDA_PREFIX/lib" }
 format = "find src tests/mojo -name '*.mojo' -print0 | xargs -0 mojo format"
 version = "mojo --version"

@@ -23,11 +23,18 @@ contratos east-west internos e devem existir somente na rede privada do produto.
 
 ```text
 .
-├── src/                         # somente o Application Server Rust
-├── ai-agent-runtime/            # Mojo: agentd, HTTP interno e loaders
-│   └── src/contracts/           # espelho 1:1 dos módulos Python
-└── ai-agent-contract/           # Python: definições agentic
-    └── src/ai_orchestrator/
+├── ai-native-application-server/   # projeto principal: mesmo nome da raiz
+│   ├── Cargo.toml
+│   └── src/                        # somente o Application Server Rust
+├── ai-agent-runtime/               # Mojo: agentd, HTTP interno e loaders
+│   └── src/contracts/              # espelho 1:1 dos módulos Python
+├── ai-agent-contract/              # Python: definições agentic
+│   └── src/ai_orchestrator/
+├── builds/                         # artefatos movidos por deploy.py
+├── deploy.py                       # build Linux e stage em builds/
+├── docker-compose.yml
+├── docs/
+└── .env.example                    # ambiente compartilhado
 ```
 
 Veja [a fronteira Rust/Mojo](docs/architecture/runtime-boundary.md),
@@ -41,8 +48,8 @@ gracioso, geração dos contratos Protobuf, um fluxo CRUD tradicional e a porta
 interna `AgentRuntime` com adapter HTTP para o runtime Mojo.
 
 ```bash
-cargo test
-cargo run
+cargo test --manifest-path ai-native-application-server/Cargo.toml
+cargo run --manifest-path ai-native-application-server/Cargo.toml
 curl -s http://127.0.0.1:8080/health/ready
 ```
 
@@ -105,4 +112,17 @@ just test
 just build
 just run
 just compose-up
+```
+
+No Linux, `deploy.py` compila o projeto principal (`cargo build --release`) e o
+runtime Mojo (`pixi run build`) dentro de cada pasta e move os binários para
+`builds/`:
+
+```bash
+python3 deploy.py
+```
+
+```text
+builds/ai-native-application-server/ai-native-runtime
+builds/ai-agent-runtime/agentd
 ```

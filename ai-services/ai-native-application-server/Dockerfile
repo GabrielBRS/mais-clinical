@@ -4,17 +4,17 @@ RUN apt-get update \
     && apt-get install --yes --no-install-recommends protobuf-compiler=3.21.12-3+deb12u1 \
     && rm -rf /var/lib/apt/lists/*
 WORKDIR /workspace
-COPY Cargo.toml Cargo.lock ./
-COPY build.rs ./build.rs
 COPY proto ./proto
-COPY src ./src
+COPY ai-native-application-server/Cargo.toml ai-native-application-server/Cargo.lock ai-native-application-server/build.rs ./ai-native-application-server/
+COPY ai-native-application-server/src ./ai-native-application-server/src
+WORKDIR /workspace/ai-native-application-server
 RUN cargo build --locked --release -p ai-native-runtime
 
 FROM debian:bookworm-slim@sha256:3783cc01769c7b2b1b83a5c5ad96c815348e28ed7da68e2e3687004faa906251 AS runtime
 
 RUN groupadd --system runtime \
     && useradd --system --gid runtime --no-create-home runtime
-COPY --from=builder /workspace/target/release/ai-native-runtime /usr/local/bin/ai-native-runtime
+COPY --from=builder /workspace/ai-native-application-server/target/release/ai-native-runtime /usr/local/bin/ai-native-runtime
 
 ENV AOR_HTTP_HOST=0.0.0.0 \
     AOR_HTTP_PORT=8080 \

@@ -1,9 +1,10 @@
 fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let proto_dir = "../proto";
     let protos = [
-        "proto/agent.proto",
-        "proto/common.proto",
-        "proto/inference.proto",
-        "proto/retrieval.proto",
+        "../proto/agent.proto",
+        "../proto/common.proto",
+        "../proto/inference.proto",
+        "../proto/retrieval.proto",
     ];
 
     for proto in protos {
@@ -13,7 +14,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     tonic_prost_build::configure()
         .build_client(true)
         .build_server(true)
-        .compile_protos(&protos, &["proto"])?;
+        .compile_protos(&protos, &[proto_dir])?;
 
     Ok(())
 }

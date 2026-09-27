@@ -3,7 +3,7 @@
   "extraPaths": ["ai-agent-contract/src"],
   "include": [
     "ai-agent-contract/src/ai_orchestrator",
-    "tests"
+    "ai-native-application-server/tests"
   ],
   "exclude": [
     "**/.pixi",
@@ -11,6 +11,7 @@
     "**/__pycache__",
     "**/target",
     "**/build",
+    "**/builds",
     "ai-agent-runtime"
   ]
 }

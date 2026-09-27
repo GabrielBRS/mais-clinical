@@ -25,8 +25,8 @@ Entregue nesta fase:
 - adapter HTTP privado e fluxo Rust -> Mojo -> Python -> Mojo -> Rust;
 - Dockerfile multi-stage do runtime Rust;
 - Compose com ambos os processos e somente a porta Rust publicada;
-- separação física em `src/` (Rust), `ai-agent-runtime/` (Mojo) e
-  `ai-agent-contract/` (Python);
+- separação física em `ai-native-application-server/` (Rust, mesmo nome da raiz),
+  `ai-agent-runtime/` (Mojo) e `ai-agent-contract/` (Python);
 - loaders Mojo 1:1 gerados para os 202 módulos Python e registro carregado no
   startup;
 - comandos Cargo, Pixi e Just para validação;

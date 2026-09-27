@@ -6,14 +6,14 @@ and agentic use cases backed by the internal Mojo/Python runtime port.
 
 ```text
 client
-  -> src/main.rs (only public ingress)
+  -> ai-native-application-server/src/main.rs (only public ingress)
        -> traditional use case -> database/integration -> response
        -> agentic use case -> Mojo runtime -> Python agent contract -> response
 ```
 
 ## Current boundary
 
-The root Rust crate under `src/` owns:
+The Rust crate under `ai-native-application-server/` owns:
 
 - environment configuration with the `AOR_` prefix;
 - structured JSON logs and HTTP tracing;
@@ -55,9 +55,9 @@ backend readiness.
 ## Local commands
 
 ```bash
-cargo test
-cargo clippy --all-targets -- -D warnings
-cargo run
+cargo test --manifest-path ai-native-application-server/Cargo.toml
+cargo clippy --manifest-path ai-native-application-server/Cargo.toml --all-targets -- -D warnings
+cargo run --manifest-path ai-native-application-server/Cargo.toml
 docker build -f Dockerfile -t orzyon/ai-native-runtime:0.1.0 .
 ```
 

@@ -2,6 +2,8 @@
 
 ## Rust Application Server
 
+O crate fica em `ai-native-application-server/` (mesmo nome da raiz). `Cargo.toml` e `src/` ficam nessa pasta.
+
 - `domain/`: domínio de negócio tradicional;
 - `application/`: casos de uso, inclusive os que optam por invocar agentes;
 - `ports/`: contratos de bancos, mensageria, storage, integrações e

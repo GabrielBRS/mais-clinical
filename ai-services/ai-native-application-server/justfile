@@ -7,26 +7,29 @@ generate-contract-loaders:
     uv run --frozen python scripts/generate_agent_contract_loaders.py
 
 format:
-    cargo fmt --all
+    cargo fmt --all --manifest-path ai-native-application-server/Cargo.toml
     pixi run --manifest-path ai-agent-runtime/pixi.toml format
 
 lint:
-    cargo fmt --all -- --check
-    cargo clippy --all-targets -- -D warnings
+    cargo fmt --all --manifest-path ai-native-application-server/Cargo.toml -- --check
+    cargo clippy --manifest-path ai-native-application-server/Cargo.toml --all-targets -- -D warnings
 
 test:
-    cargo test
+    cargo test --manifest-path ai-native-application-server/Cargo.toml
     pixi run --manifest-path ai-agent-runtime/pixi.toml test
-    cargo build --locked
+    cargo build --locked --manifest-path ai-native-application-server/Cargo.toml
     pixi run --manifest-path ai-agent-runtime/pixi.toml build
     uv run --frozen python -m pytest
 
 build:
-    cargo build --locked --release -p ai-native-runtime
+    cargo build --locked --release --manifest-path ai-native-application-server/Cargo.toml -p ai-native-runtime
     pixi run --manifest-path ai-agent-runtime/pixi.toml build
 
+deploy:
+    python3 deploy.py
+
 run:
-    cargo run --locked -p ai-native-runtime
+    cargo run --locked --manifest-path ai-native-application-server/Cargo.toml -p ai-native-runtime
 
 run-agent:
     pixi run --manifest-path ai-agent-runtime/pixi.toml run

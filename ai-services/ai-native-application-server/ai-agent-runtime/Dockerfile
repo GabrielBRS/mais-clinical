@@ -30,4 +30,4 @@ USER agent-runtime
 HEALTHCHECK --interval=10s --timeout=3s --start-period=15s --retries=3 \
     CMD ["bash", "-c", "exec 3<>/dev/tcp/127.0.0.1/8090; printf 'GET /health/ready HTTP/1.1\\r\\nHost: localhost\\r\\nConnection: close\\r\\n\\r\\n' >&3; grep -q 'HTTP/1.1 200' <&3"]
 
-ENTRYPOINT ["/app/build/agentd"]
+ENTRYPOINT ["/app/ai-agent-runtime/build/agentd"]

@@ -16,7 +16,7 @@ Rust is the only public process. Clients must never call Mojo directly.
 
 | Process | Path | Owns | Must not do |
 | --- | --- | --- | --- |
-| Rust application server | `src/**/*.rs` | public HTTP, CRUD, DBs, auth, request control | agent graph, RAG, harness |
+| Rust application server | `ai-native-application-server/src/**/*.rs` | public HTTP, CRUD, DBs, auth, request control | agent graph, RAG, harness |
 | Mojo agent runtime | `ai-agent-runtime/**/*.mojo` | embedded CPython lifecycle, module/object cache, private HTTP/IPC, execution | reimplementing contract behavior |
 | Python agent contract | `ai-agent-contract/src/ai_orchestrator/` | agent, graph, use-case and adapter definitions | public ingress, traditional CRUD |
 
@@ -31,8 +31,8 @@ Mojo must use `Python.import_module()` and the CPython embedding variables
 
 | Layer | Path | Owns | Must not do |
 | --- | --- | --- | --- |
-| Rust application | `src/application/`, `src/ports/` | public business use cases and internal agent port | Python orchestration |
-| Rust adapters | `src/infrastructure/`, `src/transport/` | data adapters, private Mojo client, public API | agent implementation |
+| Rust application | `ai-native-application-server/src/application/`, `ai-native-application-server/src/ports/` | public business use cases and internal agent port | Python orchestration |
+| Rust adapters | `ai-native-application-server/src/infrastructure/`, `ai-native-application-server/src/transport/` | data adapters, private Mojo client, public API | agent implementation |
 | Mojo runtime | `ai-agent-runtime/src/` | CPython interop, mirrored loaders, object registry and private transport | duplicated contract logic |
 | Python contract | `ai-agent-contract/src/ai_orchestrator/` | domain, use cases, orchestration, adapters, composition root | public client API |
 
@@ -42,6 +42,14 @@ Every Python module must have a homologous generated loader under
 the loaders.
 
 vLLM / LiteLLM stay as external HTTP services. Training/HF serving stay out of both processes.
+
+## Repository layout
+
+The directory with the same name as the repository root is the principal Rust
+project. `Cargo.toml` lives there. `ai-agent-runtime` and `ai-agent-contract`
+stay beside it. The repository root keeps the shared `.env`, Docker Compose,
+docs and `deploy.py`. On Linux, `deploy.py` builds each project in its own
+folder and moves the release artifact into `builds/`.
 
 ## Placement rule
 
