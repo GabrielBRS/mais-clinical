@@ -1,0 +1,18 @@
+[workspace]
+name = "omai-patient"
+version = "0.1.0"
+channels = ["conda-forge"]
+platforms = ["win-64"]
+
+[dependencies]
+qt6-main = ">=6.8,<6.9"
+cmake = ">=3.24"
+ninja = "*"
+
+[tasks]
+configure = "cmd /c scripts\\build.cmd configure"
+build = "cmd /c scripts\\build.cmd build"
+test = "build/omai-tests.exe -o build/test-results.txt,txt"
+smoke = "cmd /c scripts\\run.cmd --smoke"
+smoke-compact = "cmd /c scripts\\run.cmd --smoke --compact"
+start = "cmd /c scripts\\run.cmd"
