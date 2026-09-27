@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "models": [
+    {
+      "id": "local-model",
+      "provider": "local",
+      "runtime": "vllm",
+      "upstream_id": "Qwen/Qwen2.5-0.5B-Instruct",
+      "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+      "source": "https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct",
+      "revision_verified_at": "2026-09-27",
+      "deployment_class": "optional-local-gpu-lab",
+      "configured_max_model_len": 2048,
+      "upstream_context_window": null,
+      "capabilities": {"tool_calling": null, "reasoning": null},
+      "validation": "NOT TESTED ON REAL GPU",
+      "notes": "Configuration limit is not an upstream capability claim. Validate license, runtime and hardware before enabling. Changing model requires reviewing its revision too."
+    }
+  ]
+}

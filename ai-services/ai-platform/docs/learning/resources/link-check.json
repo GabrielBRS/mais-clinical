@@ -1,0 +1,575 @@
+{
+  "checked_at": "2026-09-27T12:55:27.934598+00:00",
+  "results": [
+    {
+      "url": "https://api-security.owasp.org/editions/2023/en/0x00-header/",
+      "final_url": "https://api-security.owasp.org/editions/2023/en/0x00-header/",
+      "status": 200
+    },
+    {
+      "url": "https://argo-cd.readthedocs.io/en/stable/",
+      "final_url": "https://argo-cd.readthedocs.io/en/stable/",
+      "status": 200
+    },
+    {
+      "url": "https://arxiv.org/abs/1706.03762",
+      "final_url": "https://arxiv.org/abs/1706.03762",
+      "status": 200
+    },
+    {
+      "url": "https://arxiv.org/abs/2004.04906",
+      "final_url": "https://arxiv.org/abs/2004.04906",
+      "status": 200
+    },
+    {
+      "url": "https://arxiv.org/abs/2005.11401",
+      "final_url": "https://arxiv.org/abs/2005.11401",
+      "status": 200
+    },
+    {
+      "url": "https://arxiv.org/abs/2210.03629",
+      "final_url": "https://arxiv.org/abs/2210.03629",
+      "status": 200
+    },
+    {
+      "url": "https://arxiv.org/abs/2309.06180",
+      "final_url": "https://arxiv.org/abs/2309.06180",
+      "status": 200
+    },
+    {
+      "url": "https://aws.amazon.com/builders-library/",
+      "final_url": "https://builder.aws.com/learn/topics/builders-library",
+      "status": 200
+    },
+    {
+      "url": "https://blog.cloudflare.com/",
+      "final_url": "https://blog.cloudflare.com/",
+      "status": 200
+    },
+    {
+      "url": "https://containerd.io/docs/",
+      "final_url": "https://containerd.io/docs/",
+      "status": 200
+    },
+    {
+      "url": "https://developer.hashicorp.com/terraform/docs",
+      "final_url": "https://developer.hashicorp.com/terraform/docs",
+      "status": 200
+    },
+    {
+      "url": "https://developer.nvidia.com/blog/",
+      "final_url": "https://developer.nvidia.com/blog/",
+      "status": 200
+    },
+    {
+      "url": "https://docs.astral.sh/uv/",
+      "final_url": "https://docs.astral.sh/uv/",
+      "status": 200
+    },
+    {
+      "url": "https://docs.aws.amazon.com/",
+      "final_url": "https://docs.aws.amazon.com/",
+      "status": 200
+    },
+    {
+      "url": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html",
+      "final_url": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html",
+      "status": 200
+    },
+    {
+      "url": "https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html",
+      "final_url": "https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html",
+      "status": 200
+    },
+    {
+      "url": "https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html",
+      "final_url": "https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html",
+      "status": 200
+    },
+    {
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-bedrock.html",
+      "final_url": "https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-bedrock.html",
+      "status": 200
+    },
+    {
+      "url": "https://docs.aws.amazon.com/cost-management/latest/userguide/billing-getting-started.html",
+      "final_url": "https://docs.aws.amazon.com/cost-management/latest/userguide/billing-getting-started.html",
+      "status": 200
+    },
+    {
+      "url": "https://docs.aws.amazon.com/eks/latest/userguide/what-is-eks.html",
+      "final_url": "https://docs.aws.amazon.com/eks/latest/userguide/what-is-eks.html",
+      "status": 200
+    },
+    {
+      "url": "https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html",
+      "final_url": "https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html",
+      "status": 200
+    },
+    {
+      "url": "https://docs.crossplane.io/latest/",
+      "final_url": "https://docs.crossplane.io/latest/",
+      "status": 200
+    },
+    {
+      "url": "https://docs.docker.com/",
+      "final_url": "https://docs.docker.com/",
+      "status": 200
+    },
+    {
+      "url": "https://docs.github.com/en/actions",
+      "final_url": "https://docs.github.com/en/actions",
+      "status": 200
+    },
+    {
+      "url": "https://docs.kernel.org/",
+      "final_url": "https://docs.kernel.org/",
+      "status": 200
+    },
+    {
+      "url": "https://docs.langchain.com/oss/python/langgraph/overview",
+      "final_url": "https://docs.langchain.com/oss/python/langgraph/overview",
+      "status": 200
+    },
+    {
+      "url": "https://docs.litellm.ai/docs/",
+      "final_url": "https://docs.litellm.ai/docs/",
+      "status": 200
+    },
+    {
+      "url": "https://docs.locust.io/en/stable/",
+      "final_url": "https://docs.locust.io/en/stable/",
+      "status": 200
+    },
+    {
+      "url": "https://docs.nvidia.com/cuda/",
+      "final_url": "https://docs.nvidia.com/cuda/",
+      "status": 200
+    },
+    {
+      "url": "https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/",
+      "final_url": "https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/",
+      "status": 200
+    },
+    {
+      "url": "https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/",
+      "final_url": "https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/",
+      "status": 200
+    },
+    {
+      "url": "https://docs.nvidia.com/datacenter/dcgm/latest/",
+      "final_url": "https://docs.nvidia.com/datacenter/dcgm/latest/",
+      "status": 200
+    },
+    {
+      "url": "https://docs.python.org/3/library/profile.html",
+      "final_url": "https://docs.python.org/3/library/profile.html",
+      "status": 200
+    },
+    {
+      "url": "https://docs.sigstore.dev/cosign/signing/signing_with_containers/",
+      "final_url": "https://docs.sigstore.dev/cosign/signing/signing_with_containers/",
+      "status": 200
+    },
+    {
+      "url": "https://docs.vllm.ai/en/stable/",
+      "final_url": "https://docs.vllm.ai/en/stable/",
+      "status": 200
+    },
+    {
+      "url": "https://gateway-api.sigs.k8s.io/",
+      "final_url": "https://gateway-api.sigs.k8s.io/",
+      "status": 200
+    },
+    {
+      "url": "https://genai.owasp.org/",
+      "final_url": "https://genai.owasp.org/",
+      "status": 200
+    },
+    {
+      "url": "https://github.com/BerriAI/litellm",
+      "final_url": "https://github.com/BerriAI/litellm",
+      "status": 200
+    },
+    {
+      "url": "https://github.com/NVIDIA/dcgm-exporter",
+      "final_url": "https://github.com/NVIDIA/dcgm-exporter",
+      "status": 200
+    },
+    {
+      "url": "https://github.com/NVIDIA/gpu-operator",
+      "final_url": "https://github.com/NVIDIA/gpu-operator",
+      "status": 200
+    },
+    {
+      "url": "https://github.com/NVIDIA/k8s-device-plugin",
+      "final_url": "https://github.com/NVIDIA/k8s-device-plugin",
+      "status": 200
+    },
+    {
+      "url": "https://github.com/anchore/grype",
+      "final_url": "https://github.com/anchore/grype",
+      "status": 200
+    },
+    {
+      "url": "https://github.com/anchore/syft",
+      "final_url": "https://github.com/anchore/syft",
+      "status": 200
+    },
+    {
+      "url": "https://github.com/argoproj/argo-cd",
+      "final_url": "https://github.com/argoproj/argo-cd",
+      "status": 200
+    },
+    {
+      "url": "https://github.com/aws/karpenter-provider-aws",
+      "final_url": "https://github.com/aws/karpenter-provider-aws",
+      "status": 200
+    },
+    {
+      "url": "https://github.com/crossplane/crossplane",
+      "final_url": "https://github.com/crossplane/crossplane",
+      "status": 200
+    },
+    {
+      "url": "https://github.com/grafana/grafana",
+      "final_url": "https://github.com/grafana/grafana",
+      "status": 200
+    },
+    {
+      "url": "https://github.com/helm/helm",
+      "final_url": "https://github.com/helm/helm",
+      "status": 200
+    },
+    {
+      "url": "https://github.com/kubernetes-sigs/karpenter",
+      "final_url": "https://github.com/kubernetes-sigs/karpenter",
+      "status": 200
+    },
+    {
+      "url": "https://github.com/kubernetes/autoscaler",
+      "final_url": "https://github.com/kubernetes/autoscaler",
+      "status": 200
+    },
+    {
+      "url": "https://github.com/kubernetes/kubernetes",
+      "final_url": "https://github.com/kubernetes/kubernetes",
+      "status": 200
+    },
+    {
+      "url": "https://github.com/langchain-ai/langgraph",
+      "final_url": "https://github.com/langchain-ai/langgraph",
+      "status": 200
+    },
+    {
+      "url": "https://github.com/modelcontextprotocol/modelcontextprotocol",
+      "final_url": "https://github.com/modelcontextprotocol/modelcontextprotocol",
+      "status": 200
+    },
+    {
+      "url": "https://github.com/modelcontextprotocol/python-sdk",
+      "final_url": "https://github.com/modelcontextprotocol/python-sdk",
+      "status": 200
+    },
+    {
+      "url": "https://github.com/open-telemetry/opentelemetry-python",
+      "final_url": "https://github.com/open-telemetry/opentelemetry-python",
+      "status": 200
+    },
+    {
+      "url": "https://github.com/opencost/opencost",
+      "final_url": "https://github.com/opencost/opencost",
+      "status": 200
+    },
+    {
+      "url": "https://github.com/pgvector/pgvector",
+      "final_url": "https://github.com/pgvector/pgvector",
+      "status": 200
+    },
+    {
+      "url": "https://github.com/prometheus/prometheus",
+      "final_url": "https://github.com/prometheus/prometheus",
+      "status": 200
+    },
+    {
+      "url": "https://github.com/vllm-project/vllm",
+      "final_url": "https://github.com/vllm-project/vllm",
+      "status": 200
+    },
+    {
+      "url": "https://grafana.com/docs/grafana/latest/",
+      "final_url": "https://grafana.com/docs/grafana/latest/",
+      "status": 200
+    },
+    {
+      "url": "https://grafana.com/docs/k6/latest/",
+      "final_url": "https://grafana.com/docs/k6/latest/",
+      "status": 200
+    },
+    {
+      "url": "https://helm.sh/docs/",
+      "final_url": "https://helm.sh/docs/",
+      "status": 200
+    },
+    {
+      "url": "https://huyenchip.com/",
+      "final_url": "https://huyenchip.com/",
+      "status": 200
+    },
+    {
+      "url": "https://karpenter.sh/docs/",
+      "final_url": "https://karpenter.sh/docs/",
+      "status": 200
+    },
+    {
+      "url": "https://kind.sigs.k8s.io/docs/user/quick-start/",
+      "final_url": "https://kind.sigs.k8s.io/docs/user/quick-start/",
+      "status": 200
+    },
+    {
+      "url": "https://kubernetes.io/docs/concepts/",
+      "final_url": "https://kubernetes.io/docs/concepts/",
+      "status": 200
+    },
+    {
+      "url": "https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/",
+      "final_url": "https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/",
+      "status": 200
+    },
+    {
+      "url": "https://kubernetes.io/docs/concepts/scheduling-eviction/kube-scheduler/",
+      "final_url": "https://kubernetes.io/docs/concepts/scheduling-eviction/kube-scheduler/",
+      "status": 200
+    },
+    {
+      "url": "https://kubernetes.io/docs/concepts/security/",
+      "final_url": "https://kubernetes.io/docs/concepts/security/",
+      "status": 200
+    },
+    {
+      "url": "https://kubernetes.io/docs/concepts/services-networking/",
+      "final_url": "https://kubernetes.io/docs/concepts/services-networking/",
+      "status": 200
+    },
+    {
+      "url": "https://kubernetes.io/docs/concepts/storage/",
+      "final_url": "https://kubernetes.io/docs/concepts/storage/",
+      "status": 200
+    },
+    {
+      "url": "https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/",
+      "final_url": "https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/",
+      "status": 200
+    },
+    {
+      "url": "https://kubernetes.io/docs/reference/access-authn-authz/rbac/",
+      "final_url": "https://kubernetes.io/docs/reference/access-authn-authz/rbac/",
+      "status": 200
+    },
+    {
+      "url": "https://kubernetes.io/docs/reference/kubectl/",
+      "final_url": "https://kubernetes.io/docs/reference/kubectl/",
+      "status": 200
+    },
+    {
+      "url": "https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/",
+      "final_url": "https://kubernetes.io/docs/concepts/workloads/autoscaling/horizontal-pod-autoscale/",
+      "status": 200
+    },
+    {
+      "url": "https://kyverno.io/docs/",
+      "final_url": "https://kyverno.io/docs/introduction/",
+      "status": 200
+    },
+    {
+      "url": "https://learn.microsoft.com/en-us/azure/",
+      "final_url": "https://learn.microsoft.com/en-us/azure/",
+      "status": 200
+    },
+    {
+      "url": "https://learn.microsoft.com/en-us/azure/aks/",
+      "final_url": "https://learn.microsoft.com/en-us/azure/aks/",
+      "status": 200
+    },
+    {
+      "url": "https://learn.microsoft.com/en-us/azure/container-registry/",
+      "final_url": "https://learn.microsoft.com/en-us/azure/container-registry/",
+      "status": 200
+    },
+    {
+      "url": "https://learn.microsoft.com/en-us/azure/cost-management-billing/",
+      "final_url": "https://learn.microsoft.com/en-us/azure/cost-management-billing/",
+      "status": 200
+    },
+    {
+      "url": "https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/overview",
+      "final_url": "https://learn.microsoft.com/en-us/azure/virtual-machines/sizes/overview",
+      "status": 200
+    },
+    {
+      "url": "https://learn.microsoft.com/en-us/azure/virtual-machines/spot-vms",
+      "final_url": "https://learn.microsoft.com/en-us/azure/virtual-machines/spot-vms",
+      "status": 200
+    },
+    {
+      "url": "https://learn.microsoft.com/en-us/azure/virtual-network/",
+      "final_url": "https://learn.microsoft.com/en-us/azure/virtual-network/",
+      "status": 200
+    },
+    {
+      "url": "https://learn.microsoft.com/en-us/entra/identity/",
+      "final_url": "https://learn.microsoft.com/en-us/entra/identity/",
+      "status": 200
+    },
+    {
+      "url": "https://learn.microsoft.com/en-us/entra/identity/managed-identities-azure-resources/overview",
+      "final_url": "https://learn.microsoft.com/en-us/entra/identity/managed-identities-azure-resources/overview",
+      "status": 200
+    },
+    {
+      "url": "https://learn.microsoft.com/en-us/windows/wsl/",
+      "final_url": "https://learn.microsoft.com/en-us/windows/wsl/",
+      "status": 200
+    },
+    {
+      "url": "https://man7.org/tlpi/",
+      "final_url": "https://man7.org/tlpi/",
+      "status": 200
+    },
+    {
+      "url": "https://modelcontextprotocol.io/specification/latest",
+      "final_url": "https://modelcontextprotocol.io/specification/2026-07-28",
+      "status": 200
+    },
+    {
+      "url": "https://netflixtechblog.com/",
+      "final_url": "https://netflixtechblog.com/?gi=bac1b78a3f11",
+      "status": 200
+    },
+    {
+      "url": "https://open-policy-agent.github.io/gatekeeper/website/docs/",
+      "final_url": "https://open-policy-agent.github.io/gatekeeper/website/docs/",
+      "status": 200
+    },
+    {
+      "url": "https://opencontainers.org/",
+      "final_url": "https://opencontainers.org/",
+      "status": 200
+    },
+    {
+      "url": "https://openmetrics.io/",
+      "final_url": "https://openmetrics.io/",
+      "status": 200
+    },
+    {
+      "url": "https://opentelemetry.io/docs/",
+      "final_url": "https://opentelemetry.io/docs/",
+      "status": 200
+    },
+    {
+      "url": "https://opentofu.org/docs/",
+      "final_url": "https://opentofu.org/docs/",
+      "status": 200
+    },
+    {
+      "url": "https://owasp.org/www-project-top-ten/",
+      "final_url": "https://owasp.org/projects/top-ten",
+      "status": 200
+    },
+    {
+      "url": "https://pages.cs.wisc.edu/~remzi/OSTEP/",
+      "final_url": "https://pages.cs.wisc.edu/~remzi/OSTEP/",
+      "status": 200
+    },
+    {
+      "url": "https://prometheus.io/docs/introduction/overview/",
+      "final_url": "https://prometheus.io/docs/introduction/overview/",
+      "status": 200
+    },
+    {
+      "url": "https://raft.github.io/raft.pdf",
+      "final_url": "https://raft.github.io/raft.pdf",
+      "status": 200
+    },
+    {
+      "url": "https://research.google/pubs/dapper-a-large-scale-distributed-systems-tracing-infrastructure/",
+      "final_url": "https://research.google/pubs/dapper-a-large-scale-distributed-systems-tracing-infrastructure/",
+      "status": 200
+    },
+    {
+      "url": "https://research.google/pubs/large-scale-cluster-management-at-google-with-borg/",
+      "final_url": "https://research.google/pubs/large-scale-cluster-management-at-google-with-borg/",
+      "status": 200
+    },
+    {
+      "url": "https://slsa.dev/",
+      "final_url": "https://slsa.dev/",
+      "status": 200
+    },
+    {
+      "url": "https://sre.google/",
+      "final_url": "https://sre.google/",
+      "status": 200
+    },
+    {
+      "url": "https://sre.google/books/",
+      "final_url": "https://sre.google/books/",
+      "status": 200
+    },
+    {
+      "url": "https://trivy.dev/",
+      "final_url": "https://trivy.dev/",
+      "status": 200
+    },
+    {
+      "url": "https://www.brendangregg.com/blog/",
+      "final_url": "https://www.brendangregg.com/blog/",
+      "status": 200
+    },
+    {
+      "url": "https://www.brendangregg.com/systems-performance-2nd-edition-book.html",
+      "final_url": "https://www.brendangregg.com/systems-performance-2nd-edition-book.html",
+      "status": 200
+    },
+    {
+      "url": "https://www.kernel.org/doc/man-pages/",
+      "final_url": "https://www.kernel.org/doc/man-pages/",
+      "status": 200
+    },
+    {
+      "url": "https://www.mongodb.com/docs/",
+      "final_url": "https://www.mongodb.com/docs/",
+      "status": 200
+    },
+    {
+      "url": "https://www.opencost.io/docs/",
+      "final_url": "https://opencost.io/docs/",
+      "status": 200
+    },
+    {
+      "url": "https://www.openpolicyagent.org/docs",
+      "final_url": "https://www.openpolicyagent.org/docs",
+      "status": 200
+    },
+    {
+      "url": "https://www.oreilly.com/library/view/designing-data-intensive-applications/9781098119058/",
+      "final_url": "https://www.oreilly.com/library/view/designing-data-intensive-applications/9781098119058/",
+      "status": 403
+    },
+    {
+      "url": "https://www.oreilly.com/library/view/fundamentals-of-software/9781098175504/",
+      "final_url": "https://www.oreilly.com/library/view/fundamentals-of-software/9781098175504/",
+      "status": 403
+    },
+    {
+      "url": "https://www.postgresql.org/docs/",
+      "final_url": "https://www.postgresql.org/docs/",
+      "status": 200
+    },
+    {
+      "url": "https://www.usenix.org/conference/osdi22/presentation/yu",
+      "final_url": "https://www.usenix.org/conference/osdi22/presentation/yu",
+      "status": 200
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+[project]
+name = "orzyon-ai-platform"
+version = "0.1.0"
+description = "Orzyon local AI platform: control plane, read-only MCP and retrieval"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+  "fastapi==0.141.1",
+  "starlette==1.7.0",
+  "uvicorn==0.40.0",
+  "httpx==0.28.1",
+  "mcp==1.28.1",
+  "pydantic-settings==2.15.0",
+  "prometheus-client==0.24.1",
+  "opentelemetry-sdk==1.39.1",
+  "opentelemetry-exporter-otlp-proto-http==1.39.1",
+]
+
+[dependency-groups]
+dev = ["pytest==9.1.1", "pytest-asyncio==1.3.0", "ruff==0.14.14", "mypy==1.19.1", "pyyaml==6.0.3", "pip-audit==2.10.0"]
+
+[build-system]
+requires = ["hatchling==1.28.0"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/orzyon"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+
+[tool.mypy]
+python_version = "3.12"
+check_untyped_defs = true
+disallow_untyped_defs = true
+ignore_missing_imports = true

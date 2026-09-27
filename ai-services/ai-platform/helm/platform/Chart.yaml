@@ -1,0 +1,7 @@
+apiVersion: v2
+name: orzyon-platform
+description: Local Orzyon API and three read-only MCP endpoints
+type: application
+version: 0.1.0
+appVersion: "0.1.0"
+kubeVersion: ">=1.30.0-0"

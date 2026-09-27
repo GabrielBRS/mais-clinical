@@ -1,0 +1,31 @@
+{{- if .Values.podDisruptionBudget.enabled }}
+{{- if lt (int .Values.replicaCount) 2 }}
+{{- fail "PDB requires at least two replicas in this chart" }}
+{{- end }}
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: {{ include "platform.name" . }}
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      {{- include "platform.labels" . | nindent 6 }}
+---
+{{- end }}
+{{- if .Values.networkPolicy.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: {{ include "platform.name" . }}
+spec:
+  podSelector:
+    matchLabels:
+      {{- include "platform.labels" . | nindent 6 }}
+  policyTypes: [Ingress]
+  ingress:
+    - from:
+        - podSelector: {}
+      ports:
+        - {protocol: TCP, port: 8000}
+{{- end }}

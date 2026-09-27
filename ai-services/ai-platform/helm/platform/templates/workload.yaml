@@ -1,0 +1,89 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "platform.name" . }}
+  labels:
+    {{- include "platform.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  revisionHistoryLimit: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate: {maxUnavailable: 0, maxSurge: 1}
+  selector:
+    matchLabels:
+      {{- include "platform.labels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "platform.labels" . | nindent 8 }}
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/config.yaml") . | sha256sum }}
+    spec:
+      serviceAccountName: {{ include "platform.name" . }}
+      automountServiceAccountToken: true
+      terminationGracePeriodSeconds: 30
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10001
+        runAsGroup: 10001
+        fsGroup: 10001
+        seccompProfile: {type: RuntimeDefault}
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: ScheduleAnyway
+          labelSelector:
+            matchLabels:
+              {{- include "platform.labels" . | nindent 14 }}
+      nodeSelector: {{ .Values.nodeSelector | toJson }}
+      tolerations: {{ .Values.tolerations | toJson }}
+      affinity: {{ .Values.affinity | toJson }}
+      containers:
+        - name: platform
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - {name: http, containerPort: 8000}
+          envFrom:
+            - configMapRef:
+                name: {{ include "platform.name" . }}
+          env:
+            - name: ORZYON_API_TOKEN
+              valueFrom:
+                secretKeyRef: {name: {{ .Values.existingSecret }}, key: api-token}
+            - name: ORZYON_GATEWAY_TOKEN
+              valueFrom:
+                secretKeyRef: {name: {{ .Values.existingSecret }}, key: gateway-token, optional: true}
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities: {drop: [ALL]}
+          startupProbe:
+            httpGet: {path: /health/live, port: http}
+            periodSeconds: 2
+            failureThreshold: 30
+          livenessProbe:
+            httpGet: {path: /health/live, port: http}
+            periodSeconds: 10
+          readinessProbe:
+            httpGet: {path: {{ .Values.health.readinessPath | quote }}, port: http}
+            periodSeconds: 5
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - {name: tmp, mountPath: /tmp}
+      volumes:
+        - name: tmp
+          emptyDir: {sizeLimit: 32Mi}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "platform.name" . }}
+spec:
+  type: ClusterIP
+  selector:
+    {{- include "platform.labels" . | nindent 4 }}
+  ports:
+    - {name: http, port: {{ .Values.service.port }}, targetPort: http}

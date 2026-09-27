@@ -1,0 +1,67 @@
+name: orzyon
+services:
+  platform:
+    build: .
+    image: orzyon/platform:0.1.0
+    ports: ["127.0.0.1:8000:8000"]
+    environment:
+      ORZYON_API_TOKEN: ${ORZYON_API_TOKEN:?Generate a token in .env}
+      ORZYON_PROMETHEUS_URL: http://prometheus:9090
+      ORZYON_GATEWAY_URL: http://litellm:4000
+      ORZYON_GATEWAY_TOKEN: ${ORZYON_GATEWAY_TOKEN:-}
+      ORZYON_OTLP_ENDPOINT: http://otel:4318
+      ORZYON_MCP_BASE_URL: http://127.0.0.1:8000
+    read_only: true
+    tmpfs: [/tmp]
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    mem_limit: 512m
+    cpus: 1
+  prometheus:
+    image: prom/prometheus:v3.15.0
+    command: ["--config.file=/etc/prometheus/prometheus.yml", "--storage.tsdb.retention.time=6h"]
+    volumes:
+      - ./observability/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./observability/prometheus/alerts.yml:/etc/prometheus/alerts.yml:ro
+    ports: ["127.0.0.1:9090:9090"]
+    mem_limit: 512m
+  grafana:
+    image: grafana/grafana:13.2.2
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: ${ORZYON_GRAFANA_PASSWORD:?Set a local Grafana password in .env}
+      GF_USERS_ALLOW_SIGN_UP: "false"
+    volumes:
+      - ./observability/grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./observability/grafana/dashboards:/var/lib/grafana/dashboards:ro
+    ports: ["127.0.0.1:3000:3000"]
+    mem_limit: 512m
+  otel:
+    image: otel/opentelemetry-collector-contrib:0.161.0
+    command: ["--config=/etc/otelcol/config.yaml"]
+    volumes: ["./observability/opentelemetry/collector.yaml:/etc/otelcol/config.yaml:ro"]
+    mem_limit: 256m
+  litellm:
+    profiles: [inference]
+    image: ghcr.io/berriai/litellm:v1.102.1
+    command: ["--config", "/app/config.yaml", "--port", "4000"]
+    environment:
+      LITELLM_MASTER_KEY: ${ORZYON_GATEWAY_TOKEN:-}
+      VLLM_API_KEY: ${VLLM_API_KEY:-}
+    volumes: ["./gateway/litellm/config.yaml:/app/config.yaml:ro"]
+    ports: ["127.0.0.1:4000:4000"]
+    mem_limit: 1g
+  vllm:
+    profiles: [inference]
+    image: vllm/vllm-openai:v0.30.0
+    command: ["--model", "${VLLM_MODEL:-Qwen/Qwen2.5-0.5B-Instruct}", "--revision", "${VLLM_MODEL_REVISION:-7ae557604adf67be50417f59c2c2f167def9a775}", "--served-model-name", "local-model", "--max-model-len", "2048", "--gpu-memory-utilization", "0.8", "--api-key", "${VLLM_API_KEY:-}"]
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    shm_size: 1gb
+    volumes: [model-cache:/root/.cache/huggingface]
+volumes:
+  model-cache:

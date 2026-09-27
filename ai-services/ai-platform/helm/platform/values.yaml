@@ -1,0 +1,25 @@
+replicaCount: 1
+image:
+  repository: orzyon/platform
+  tag: "0.1.0"
+  pullPolicy: IfNotPresent
+existingSecret: orzyon-api
+health:
+  readinessPath: /health/ready
+service:
+  port: 8000
+config:
+  prometheusUrl: http://prometheus:9090
+  gatewayUrl: http://litellm:4000
+  otlpEndpoint: ""
+resources:
+  requests: {cpu: 100m, memory: 128Mi}
+  limits: {cpu: "1", memory: 512Mi}
+podDisruptionBudget:
+  enabled: false
+networkPolicy:
+  enabled: false
+  # kindnet does not enforce NetworkPolicy. Enable only with a compatible CNI.
+nodeSelector: {}
+tolerations: []
+affinity: {}

@@ -1,0 +1,15 @@
+groups:
+  - name: orzyon-lab
+    rules:
+      - alert: OrzyonUnavailable
+        expr: up{job="orzyon"} == 0
+        for: 1m
+        labels: {severity: warning}
+        annotations:
+          summary: Platform scrape failed; inspect process, network and readiness
+      - alert: OrzyonToolErrors
+        expr: sum(rate(orzyon_tool_calls_total{outcome="error"}[5m])) > 0
+        for: 2m
+        labels: {severity: warning}
+        annotations:
+          summary: MCP tools are failing; inspect tool audit events

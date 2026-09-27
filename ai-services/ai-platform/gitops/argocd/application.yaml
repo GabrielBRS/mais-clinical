@@ -1,0 +1,23 @@
+# Before applying, replace targetRevision with the reviewed/pushed commit SHA.
+# This intentionally cannot sync until that operator input is supplied.
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: orzyon-local
+  namespace: argocd
+spec:
+  project: orzyon-local
+  source:
+    repoURL: https://github.com/GabrielBRS/mais-clinical.git
+    targetRevision: SET_REVIEWED_COMMIT_SHA
+    path: ai-services/ai-platform/helm/platform
+    helm:
+      releaseName: orzyon
+      values: |
+        replicaCount: 2
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: orzyon
+  syncPolicy:
+    # Initial sync is manual. selfHeal can be enabled in the drift laboratory.
+    syncOptions: [CreateNamespace=false]

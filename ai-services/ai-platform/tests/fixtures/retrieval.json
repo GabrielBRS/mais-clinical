@@ -1,0 +1,4 @@
+[
+  {"id": "scheduling", "query": "Pod Pending GPU", "relevant_sources": ["platform.md"]},
+  {"id": "security", "query": "secrets telemetria", "relevant_sources": ["platform.md"]}
+]

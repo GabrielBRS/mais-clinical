@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "platform.name" . }}
+data:
+  ORZYON_NAMESPACE: {{ .Release.Namespace | quote }}
+  ORZYON_DOCUMENT_ROOT: /app/knowledge
+  ORZYON_PROMETHEUS_URL: {{ .Values.config.prometheusUrl | quote }}
+  ORZYON_GATEWAY_URL: {{ .Values.config.gatewayUrl | quote }}
+  ORZYON_OTLP_ENDPOINT: {{ .Values.config.otlpEndpoint | quote }}
+  ORZYON_MCP_BASE_URL: http://127.0.0.1:8000
